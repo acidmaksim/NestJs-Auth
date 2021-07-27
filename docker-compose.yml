@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  nestapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    container_name: nestapi
+    env_file: .env
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - dbdata:/data/postgres
+    env_file:
+      - docker.env
+    networks:
+      - app-network
+
+  pgadmin:
+    links:
+      - postgres:postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - '8080:80'
+    volumes:
+      - dbadmin:/root/.pgadmin
+    env_file:
+      - docker.env
+    networks:
+      - app-network
+
+
+volumes:
+  dbdata: 
+  dbadmin: 
+
+networks:
+  app-network:
+    driver: bridge
