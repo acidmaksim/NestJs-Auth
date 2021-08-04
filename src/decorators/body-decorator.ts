@@ -4,7 +4,9 @@ export const BodyWithProfile = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const { user, body } = ctx.switchToHttp().getRequest();
 
-    body.profileId = user.profileId;
+    if (user) {
+      body.profileId = user.profileId;
+    }
 
     return body;
   },
