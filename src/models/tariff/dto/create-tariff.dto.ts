@@ -1,14 +1,15 @@
-import { IsJSON, IsNotEmpty } from 'class-validator';
+import { IsJSON, IsString } from 'class-validator';
 
 export class CreateTariffDto {
-  @IsNotEmpty()
+  @IsString()
   title: string;
 
-  @IsNotEmpty()
+  @IsString()
   color: string;
 
   @IsJSON()
   price: string;
 
+  @IsString()
   profileId: string;
 }

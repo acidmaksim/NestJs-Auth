@@ -3,20 +3,20 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { CreateCashboxDto } from './dto/create-cashbox.dto';
 import { UpdateCashboxDto } from './dto/update-cashbox.dto';
-import { Cashbox } from './cashboxes.entity';
+import { CashboxEntity } from './cashbox.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class CashboxesService {
+export class CashboxService {
   constructor(
-    @InjectRepository(Cashbox)
-    private service: Repository<Cashbox>,
+    @InjectRepository(CashboxEntity)
+    private service: Repository<CashboxEntity>,
   ) {}
 
   /**
    * Create cashbox
    */
-  async create(cashboxBody: CreateCashboxDto): Promise<Cashbox> {
+  async create(cashboxBody: CreateCashboxDto): Promise<CashboxEntity> {
     const cashbox = this.service.create(cashboxBody);
 
     return this.service.save(cashbox);

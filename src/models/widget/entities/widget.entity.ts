@@ -1,12 +1,12 @@
-import { WidgetType } from '@src/enum/widget-type.enum';
 import { OrganizationModel } from 'config/models';
 import { Column, Entity } from 'typeorm';
+import { WidgetTypeEnum } from '../types/widget-type.enum';
 
-@Entity()
+@Entity({ name: 'widgets' })
 export class WidgetEntity extends OrganizationModel {
   @Column({
     type: 'enum',
-    enum: WidgetType,
+    enum: WidgetTypeEnum,
   })
   type: string[];
 

@@ -1,7 +1,7 @@
 import { OrganizationModel } from 'config/models';
 import { Column, Entity } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'certificates' })
 export class CertificateEntity extends OrganizationModel {
   @Column()
   photo: string;

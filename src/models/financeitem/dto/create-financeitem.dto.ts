@@ -1,14 +1,15 @@
-import { IsDefined, IsIn, IsNotEmpty, IsString } from 'class-validator';
+import { IsDefined, IsIn, IsOptional, IsString } from 'class-validator';
 
 // IsString или IsNotEmpty //!!
 export class CreateFinanceitemDto {
-  @IsNotEmpty()
+  @IsString()
   title: string;
 
   @IsIn(['income', 'expence'])
   type: string;
 
-  @IsDefined()
+  @IsOptional()
+  @IsString()
   comment: string;
 
   @IsString()

@@ -1,6 +1,6 @@
 import { AuthhMiddleware } from '@src/models/user/middlewares/auth.middleware';
 import { ConfigModule } from '@nestjs/config';
-import { CashboxesModule } from 'src/models/cashboxes/cashboxes.module';
+import { CashboxesModule } from 'src/models/cashbox/cashbox.module';
 
 import { UserModule } from '@src/models/user/user.module';
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';

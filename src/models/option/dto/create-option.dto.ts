@@ -4,18 +4,18 @@ import {
   IsEmail,
   IsInt,
   IsJSON,
-  IsNotEmpty,
+  IsOptional,
+  IsString,
 } from 'class-validator';
 
 export class CreateOptionDto {
-  @IsNotEmpty()
+  @IsString()
   title: string;
 
-  @IsNotEmpty()
   @IsInt()
   price: number;
 
-  @IsDefined()
+  @IsOptional()
   description: string;
 
   @IsBoolean()
@@ -23,4 +23,7 @@ export class CreateOptionDto {
 
   @IsJSON()
   questroomsIds?: string[];
+
+  @IsString()
+  profileId: string;
 }

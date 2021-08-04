@@ -2,7 +2,7 @@ import { Languages } from '@src/enum/languages.enum';
 import { OrganizationModel } from 'config/models';
 import { Column, Entity } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'questrooms' })
 export class QuestroomEntity extends OrganizationModel {
   @Column()
   title: string;

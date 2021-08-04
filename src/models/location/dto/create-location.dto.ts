@@ -32,22 +32,29 @@ export class CreateLocationDto {
   wardrobe: boolean;
 
   @IsBoolean()
+  @IsOptional()
   freeParking: boolean;
 
   @IsBoolean()
+  @IsOptional()
   parking: boolean;
 
   @IsBoolean()
+  @IsOptional()
   ventilation: boolean;
 
   @IsBoolean()
+  @IsOptional()
   waitingAreaSize: number;
 
   @IsInt()
+  @IsOptional()
   neededEmployees: number;
 
   @IsInt()
+  @IsOptional()
   sortPosition: number;
 
+  @IsString()
   profileId: string;
 }

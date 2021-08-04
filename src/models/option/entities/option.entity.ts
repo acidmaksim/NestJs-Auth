@@ -1,7 +1,7 @@
 import { OrganizationModel } from 'config/models';
 import { Column, Entity } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'options' })
 export class OptionEntity extends OrganizationModel {
   @Column()
   title: string;

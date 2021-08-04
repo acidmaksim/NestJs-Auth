@@ -1,64 +1,75 @@
 import {
   IsArray,
   IsBoolean,
-  IsDefined,
   IsInt,
-  IsNotEmpty,
+  IsOptional,
+  IsString,
 } from 'class-validator';
 
 export class CreateCertificateDto {
-  @IsNotEmpty()
+  @IsString()
   photo: string;
 
-  @IsArray()
-  photos: string[];
-
-  @IsNotEmpty()
+  @IsString()
   title: string;
 
-  @IsNotEmpty()
   @IsInt()
   validity: number;
 
-  @IsNotEmpty()
+  @IsString()
   downloadLink: string;
 
-  @IsNotEmpty()
   @IsInt()
   nominal: number;
 
+  @IsArray()
+  @IsOptional()
+  photos: string[];
+
   @IsBoolean()
+  @IsOptional()
   emailPossibility: boolean;
 
   @IsBoolean()
+  @IsOptional()
   deliveryPossibility: boolean;
 
   @IsBoolean()
+  @IsOptional()
   pickupPossibility: boolean;
 
   @IsInt()
+  @IsOptional()
   deliveryPrice: number;
 
   @IsInt()
+  @IsOptional()
   extraPrice: number;
 
   @IsInt()
+  @IsOptional()
   information: string;
 
   @IsBoolean()
+  @IsOptional()
   awailableForNavigator: boolean;
 
   @IsBoolean()
+  @IsOptional()
   awailableForWidgets: boolean;
 
-  @IsDefined()
+  @IsString()
+  @IsOptional()
   walletId: string;
 
   @IsBoolean()
+  @IsOptional()
   allQuestrooms: boolean;
 
   @IsArray()
+  @IsOptional()
   questroomsIds: string[];
 
+  @IsString()
   profileId: string;
 }

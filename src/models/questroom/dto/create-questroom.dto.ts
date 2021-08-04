@@ -1,90 +1,110 @@
 import {
   IsArray,
   IsBoolean,
-  IsDefined,
   IsIn,
   IsInt,
-  IsNotEmpty,
+  IsOptional,
+  IsString,
 } from 'class-validator';
 
 export class CreateQuestroomDto {
-  @IsNotEmpty()
+  @IsString()
   title: string;
 
-  @IsNotEmpty()
+  @IsString()
   video: string;
 
-  @IsNotEmpty()
+  @IsString()
   photo: string;
 
+  @IsString()
+  legend: string;
+
+  @IsString()
+  importantInformation: string;
+
+  @IsString()
+  defaultLanguage: string;
+
+  @IsString()
+  locationId: string;
+
   @IsArray()
+  @IsOptional()
   photos: string[];
 
   @IsInt()
+  @IsOptional()
   time: number;
 
   @IsInt()
+  @IsOptional()
   break: number;
 
-  @IsDefined()
+  @IsString()
+  @IsOptional()
   type: string;
 
   @IsInt()
+  @IsOptional()
   minAge: number;
 
   @IsInt()
+  @IsOptional()
   difficult: number;
 
   @IsInt()
+  @IsOptional()
   fear: number;
 
-  @IsDefined()
+  @IsString()
+  @IsOptional()
   teaser: string;
 
-  @IsNotEmpty()
-  legend: string;
-
-  @IsNotEmpty()
-  importantInformation: string;
-
   @IsInt()
+  @IsOptional()
   actors: number;
 
   @IsInt()
+  @IsOptional()
   neededModerators: number;
 
   @IsInt()
+  @IsOptional()
   schedulePeriod: number;
 
   @IsIn(['en', 'de', 'ru'])
+  @IsOptional()
   languages: string;
 
-  @IsNotEmpty()
-  defaultLanguage: string;
-
   @IsBoolean()
+  @IsOptional()
   awailableForNavigator: boolean;
 
   @IsBoolean()
+  @IsOptional()
   awailableForWidgets: boolean;
 
   @IsInt()
+  @IsOptional()
   minDaysForFreeCanceling: number;
 
   @IsArray()
+  @IsOptional()
   questroomIds: string[];
 
-  @IsDefined()
+  @IsString()
+  @IsOptional()
   walletId: string;
 
-  @IsNotEmpty()
-  locationId: string;
-
   @IsInt()
+  @IsOptional()
   sortPosition: number;
 
   @IsBoolean()
+  @IsOptional()
   ticketSystem: boolean;
 
+  @IsString()
   profileId: string;
 }

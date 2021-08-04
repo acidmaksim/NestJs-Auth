@@ -6,19 +6,16 @@ import {
   Param,
   Patch,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 import { CreateCashboxDto } from './dto/create-cashbox.dto';
 import { UpdateCashboxDto } from './dto/update-cashbox.dto';
-import { CashboxesService } from './cashboxes.service';
-import { CrmAuthGuard } from 'src/auth/crm-auth.guard';
+import { CashboxService } from './cashbox.service';
 import { QueryWithProfile } from 'src/decorators/query-decorator';
 import { BodyWithProfile } from 'src/decorators/body-decorator';
 
-@UseGuards(CrmAuthGuard)
 @Controller('cashboxes')
 export class CashboxesController {
-  constructor(private readonly cashboxsService: CashboxesService) {}
+  constructor(private readonly cashboxsService: CashboxService) {}
 
   @Post()
   createCashbox(@BodyWithProfile() cashboxData: CreateCashboxDto) {
