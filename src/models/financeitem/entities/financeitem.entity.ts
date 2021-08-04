@@ -3,7 +3,7 @@ import { OrganizationModel } from 'config/models';
 import { Column } from 'typeorm';
 
 export class FinanceitemEntities extends OrganizationModel {
-  @Column({ default: '' })
+  @Column({ default: '' }) //!!
   title: string;
 
   @Column({

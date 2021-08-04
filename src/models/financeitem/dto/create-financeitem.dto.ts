@@ -9,6 +9,6 @@ export class CreateFinanceitemDto {
 
   @IsDefined()
   comment: string;
-
+  //!!
   profileId: string;
 }

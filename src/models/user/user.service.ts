@@ -26,32 +26,28 @@ export class UserService {
   findAll() {
     return this.userRepository.find();
   }
-  // public findAll(query: PaginateQuery): Promise<Paginated<User>> {
-  //   return paginate(query, this.usersRepository, {
-  //     sortableColumns: ['id', 'firstName'],
-  //     searchableColumns: ['firstName'],
-  //     defaultSortBy: [['createdAt', 'DESC']],
-  //   });
-  // }
 
   findOne(id: string): Promise<UserEntity> {
     return this.userRepository.findOne(id);
   }
 
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {
+    const user = await this.findOne(id);
+    return this.userRepository.save({ ...user, ...updateUserDto });
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} user`;
+  }
+
   async login(loginUserDto: LoginUserDto): Promise<UserEntity> {
     const user = await this.userRepository.findOne(
       { email: loginUserDto.email },
-      { select: ['password', 'id'] },
+      { select: ['password', 'id', 'profileId'] },
     );
 
-    if (!user) {
-      throw new HttpException(
-        'Email or password incorrect',
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
-    }
-
-    const isPasswordCorrect = compare(loginUserDto.password, user.password);
+    const isPasswordCorrect =
+      !!user && compare(loginUserDto.password, user.password);
 
     if (!isPasswordCorrect) {
       throw new HttpException(
@@ -65,10 +61,6 @@ export class UserService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
   getUserToken({ id, profileId }: UserEntity): string {
     const data: UserJwtData = {
       id,
@@ -78,8 +70,12 @@ export class UserService {
 
     return sign(data, JWT_SECRET, { expiresIn: '360d' });
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
 }
+
+// public findAll(query: PaginateQuery): Promise<Paginated<User>> {
+//   return paginate(query, this.usersRepository, {
+//     sortableColumns: ['id', 'firstName'],
+//     searchableColumns: ['firstName'],
+//     defaultSortBy: [['createdAt', 'DESC']],
+//   });
+// }

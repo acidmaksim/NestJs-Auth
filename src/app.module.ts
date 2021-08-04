@@ -1,8 +1,9 @@
+import { AuthhMiddleware } from '@src/models/user/middlewares/auth.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { CashboxesModule } from 'src/models/cashboxes/cashboxes.module';
 
-import { Module } from '@nestjs/common';
-import { DatabaseModule } from './database.module';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import { DatabaseModule } from '@src/database.module';
 import { QuestroomModule } from '@src/models/questroom/questroom.module';
 import { CertificateModule } from '@src/models/certificate/certificate.module';
 import { FinanceitemModule } from '@src/models/financeitem/financeitem.module';
@@ -13,8 +14,8 @@ import { UserModule } from '@src/models/user/user.module';
 
 @Module({
   imports: [
-    CashboxesModule,
     ConfigModule.forRoot(),
+    CashboxesModule,
     DatabaseModule,
     QuestroomModule,
     CertificateModule,
@@ -27,4 +28,11 @@ import { UserModule } from '@src/models/user/user.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthhMiddleware).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL,
+    });
+  }
+}

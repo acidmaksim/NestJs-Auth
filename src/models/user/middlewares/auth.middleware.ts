@@ -1,4 +1,4 @@
-import { UserJwtData } from './../interfaces/user-jwt-data';
+import { UserJwtData } from '@src/interfaces/user-jwt-data';
 import { UserService } from '@src/models/user/user.service';
 import { ExpressRequest } from '@src/interfaces/express-request';
 import { Injectable, NestMiddleware } from '@nestjs/common';

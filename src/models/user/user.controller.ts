@@ -1,3 +1,4 @@
+import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from './../../interfaces/current-user';
 import {
   Controller,
@@ -8,6 +9,7 @@ import {
   Param,
   Delete,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from './user.service';
@@ -39,6 +41,7 @@ export class UserController {
     return { success: true };
   }
 
+  @UseGuards(AuthGuard)
   @Get('/currentUser')
   currentUser(@User() user: CurrentUser) {
     return user;
@@ -56,7 +59,7 @@ export class UserController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
