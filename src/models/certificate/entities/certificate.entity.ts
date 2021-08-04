@@ -3,22 +3,22 @@ import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class CertificateEntity extends OrganizationModel {
-  @Column({ default: '' })
+  @Column()
   photo: string;
 
   @Column('simple-array')
   photos: string[];
 
-  @Column({ default: '' })
+  @Column()
   title: string;
 
-  @Column({ default: 0 })
+  @Column()
   validity: number;
 
-  @Column({ default: '' })
+  @Column()
   downloadLink: string;
 
-  @Column({ default: 0 })
+  @Column()
   nominal: number;
 
   @Column({ default: false })
