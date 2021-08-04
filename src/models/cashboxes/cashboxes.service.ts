@@ -1,8 +1,3 @@
-/**
- * как прокидывать профиль везде
- *
- */
-
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { Repository } from 'typeorm';
@@ -30,19 +25,16 @@ export class CashboxesService {
   /**
    * Find all users
    */
-  async findAll(profileId: number) {
-    return await this.service.find({
-      where: { profileId },
-    });
+  async findAll(query) {
+    return await this.service.find(query);
   }
 
   /**
    * Find one cashbox
    */
-  async findOne(cashboxId: string, profileId: number) {
+  async findOne(cashboxId: string) {
     const cashbox = await this.service.findOne(cashboxId, {
       withDeleted: true,
-      where: { profileId },
     });
 
     if (!cashbox) {
@@ -55,12 +47,8 @@ export class CashboxesService {
   /**
    * Update cashbox
    */
-  async updateCashbox(
-    cashboxId: string,
-    cashboxBody: UpdateCashboxDto,
-    profileId: number,
-  ) {
-    const cashbox = await this.findOne(cashboxId, profileId);
+  async updateCashbox(cashboxId: string, cashboxBody: UpdateCashboxDto) {
+    const cashbox = await this.findOne(cashboxId);
 
     return this.service.save({
       ...cashbox,
@@ -72,16 +60,16 @@ export class CashboxesService {
    * Delete cashbox
    */
 
-  async delete(cashboxId: string, profileId: number) {
-    const cashbox = await this.findOne(cashboxId, profileId);
+  async delete(cashboxId: string) {
+    const cashbox = await this.findOne(cashboxId);
     return this.service.softRemove(cashbox);
   }
 
   /**
    * Restore cashbox
    */
-  async recover(cashboxId: string, profileId: number) {
-    const cashbox = await this.findOne(cashboxId, profileId);
+  async recover(cashboxId: string) {
+    const cashbox = await this.findOne(cashboxId);
     return this.service.recover(cashbox);
   }
 }

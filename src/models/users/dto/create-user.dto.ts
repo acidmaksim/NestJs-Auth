@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsDefined, IsEmail, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
@@ -13,8 +13,14 @@ export class CreateUserDto {
   @IsString()
   password: string;
 
+  @IsDefined()
+  photo: string;
+
   @IsString()
-  profileId: number;
+  roleId: string;
+
+  @IsString()
+  profileId: string;
 }
 
 //@ValidateIf(o => o.otherProperty === 'value')

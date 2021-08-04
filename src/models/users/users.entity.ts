@@ -9,9 +9,18 @@ export class User extends OrganizationModel {
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
+  photo: string;
+
+  @Column()
   password: string;
+
+  @Column({ default: true })
+  access: boolean;
+
+  @Column()
+  roleId: string;
 }

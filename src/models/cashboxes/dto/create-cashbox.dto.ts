@@ -1,9 +1,9 @@
 import { IsNumber, IsString } from 'class-validator';
 
 export class CreateCashboxDto {
-  @IsString()
+  // @IsString()
   title: string;
 
-  @IsNumber()
-  profileId: number;
+  // @IsNumber()
+  profileId: string;
 }

@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/users.entity';
+import { CrmAuthTokenProps } from './types';
 
 @Injectable()
 export class AuthService {
   constructor(private jwtService: JwtService) {}
 
-  async getAuthToken(user: User) {
-    const token = this.jwtService.sign({
-      sub: user.id,
-    });
+  async getCrmAuthToken(props: CrmAuthTokenProps) {
+    const token = await this.jwtService.sign(props);
 
     return token;
   }

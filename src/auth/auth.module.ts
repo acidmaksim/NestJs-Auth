@@ -1,11 +1,11 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
-import { UsersModule } from '../users/users.module';
+import { CrmStrategy } from './crm.strategy';
+import { UsersModule } from 'src/models/users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
-import { User } from 'src/users/users.entity';
+import { User } from 'src/models/users/users.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -22,7 +22,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     PassportModule,
   ],
 
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, CrmStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

@@ -37,7 +37,6 @@ export class UsersService {
    * Find one user
    */
   findOne(userId: string) {
-    console.log(userId);
     return this.usersRepository.findOneOrFail(userId);
   }
 

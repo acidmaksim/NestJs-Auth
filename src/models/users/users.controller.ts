@@ -1,5 +1,3 @@
-import { JwtAuthGuard } from './../auth/jwt-auth.guard';
-import { AuthService } from './../auth/auth.service';
 import {
   Controller,
   Post,
@@ -8,18 +6,16 @@ import {
   Param,
   Patch,
   Delete,
-  UseGuards,
   Res,
-  Req,
-  Query,
   UnauthorizedException,
+  Query,
 } from '@nestjs/common';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 import { Response } from 'express';
-import { LoginUserDto } from './dto/login-user.dto';
+import { AuthService } from 'src/auth/auth.service';
 
 @Controller('users')
 export class UsersController {
@@ -33,16 +29,24 @@ export class UsersController {
    */
   @Post('/login')
   async login(
-    @Body() body: LoginUserDto,
+    @Body('email') email: string,
+    @Body('password') pass: string,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const user = await this.usersService.findByEmail(body.username);
+    const { profileId, id, password } = await this.usersService.findByEmail(
+      email,
+    );
 
-    if (user.password !== body.password) {
+    if (password !== pass) {
       throw new UnauthorizedException();
     }
 
-    const token = this.authService.getAuthToken(user);
+    const token = await this.authService.getCrmAuthToken({
+      sub: id,
+      type: 'user',
+      profileId,
+    });
+
     res.cookie('auth-cookie', token, { httpOnly: true });
 
     return { success: true };
@@ -59,14 +63,8 @@ export class UsersController {
   /**
    * Update user
    */
-  @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  updateUser(
-    @Req() req,
-    @Param('id') userId: string,
-    @Body() userData: UpdateUserDto,
-  ) {
-    console.log(req.user);
+  updateUser(@Param('id') userId: string, @Body() userData: UpdateUserDto) {
     return this.usersService.updateUser(userId, userData);
   }
 
