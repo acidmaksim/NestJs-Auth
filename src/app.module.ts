@@ -13,6 +13,7 @@ import { OptionModule } from '@src/models/option/option.module';
 import { RoleModule } from '@src/models/role/role.module';
 import { TariffModule } from '@src/models/tariff/tariff.module';
 import { WidgetModule } from '@src/models/widget/widget.module';
+import { PartnerModule } from '@src/models/partner/partner.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { WidgetModule } from '@src/models/widget/widget.module';
     RoleModule,
     TariffModule,
     WidgetModule,
+    PartnerModule,
   ],
   controllers: [],
   providers: [],
