@@ -4,13 +4,13 @@ import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class QuestroomEntity extends OrganizationModel {
-  @Column({ default: '' })
+  @Column()
   title: string;
 
-  @Column({ default: '' })
+  @Column()
   video: string;
 
-  @Column({ default: '' })
+  @Column()
   photo: string;
 
   @Column('simple-array')
@@ -37,10 +37,10 @@ export class QuestroomEntity extends OrganizationModel {
   @Column({ default: '' })
   teaser: string;
 
-  @Column({ default: '' })
+  @Column()
   legend: string;
 
-  @Column({ default: '' })
+  @Column()
   importantInformation: string;
 
   @Column({ default: 2 })
@@ -59,7 +59,7 @@ export class QuestroomEntity extends OrganizationModel {
   })
   languages: Languages;
 
-  @Column({ default: '' })
+  @Column()
   defaultLanguage: string;
 
   @Column({ default: true })
@@ -77,7 +77,7 @@ export class QuestroomEntity extends OrganizationModel {
   @Column({ default: '' })
   walletId: string;
 
-  @Column({ default: '' })
+  @Column()
   locationId: string;
 
   @Column({ default: 1 })

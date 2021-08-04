@@ -9,6 +9,8 @@ import { FinanceitemModule } from '@src/models/financeitem/financeitem.module';
 import { LocationModule } from '@src/models/location/location.module';
 import { OptionModule } from '@src/models/option/option.module';
 import { RoleModule } from '@src/models/role/role.module';
+import { TariffModule } from '@src/models/tariff/tariff.module';
+import { WidgetModule } from '@src/models/widget/widget.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { RoleModule } from '@src/models/role/role.module';
     LocationModule,
     OptionModule,
     RoleModule,
+    TariffModule,
+    WidgetModule,
   ],
   controllers: [],
   providers: [],

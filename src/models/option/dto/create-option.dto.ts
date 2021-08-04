@@ -1,20 +1,26 @@
-import { IsDefined, IsEmail, IsNotEmpty } from 'class-validator';
+import {
+  IsBoolean,
+  IsDefined,
+  IsEmail,
+  IsInt,
+  IsJSON,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class CreateOptionDto {
   @IsNotEmpty()
   title: string;
 
-  @IsDefined()
-  contact: string;
-
-  @IsEmail()
-  email: string;
+  @IsNotEmpty()
+  @IsInt()
+  price: number;
 
   @IsDefined()
-  phone: string;
+  description: string;
 
-  @IsDefined()
-  comment: string;
+  @IsBoolean()
+  allQuestrooms: boolean;
 
-  profileId: string;
+  @IsJSON()
+  questroomsIds?: string[];
 }

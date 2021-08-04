@@ -1,20 +1,21 @@
 import { OrganizationModel } from 'config/models';
-import { Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
-export class LocationEntities extends OrganizationModel {
-  @Column({ default: '' })
+@Entity()
+export class LocationEntity extends OrganizationModel {
+  @Column()
   title: string;
 
-  @Column({ default: '' })
+  @Column()
   address: string;
 
-  @Column({ default: '' })
+  @Column()
   phone: string;
 
   @Column({ default: '' })
   howToFind: string;
 
-  @Column({ default: '' })
+  @Column()
   disinfection: string;
 
   @Column({ default: false })

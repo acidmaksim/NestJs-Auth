@@ -1,19 +1,20 @@
 import { OrganizationModel } from 'config/models';
-import { Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
-export class OptionEntities extends OrganizationModel {
-  @Column({ default: '' })
+@Entity()
+export class OptionEntity extends OrganizationModel {
+  @Column()
   title: string;
 
-  @Column({ default: '' })
-  contact: string;
+  @Column()
+  price: number;
 
   @Column({ default: '' })
-  email: string;
+  description: string;
 
-  @Column({ default: '' })
-  phone: string;
+  @Column({ default: true })
+  allQuestrooms: boolean;
 
-  @Column({ default: '' })
-  comment: string;
+  @Column({ type: 'json' })
+  questroomsIds?: string[];
 }
