@@ -1,24 +1,33 @@
-import { IsBoolean, IsDefined, IsInt, IsNotEmpty } from 'class-validator';
+import {
+  IsBoolean,
+  IsDefined,
+  IsInt,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateLocationDto {
-  @IsNotEmpty()
+  @IsString()
   title: string;
 
-  @IsNotEmpty()
+  @IsString()
   address: string;
 
-  @IsNotEmpty()
+  @IsString()
   phone: string;
 
-  @IsNotEmpty()
-  howToFind: string;
-
-  @IsDefined()
+  @IsString()
   disinfection: string;
 
+  @IsOptional()
+  @IsString()
+  howToFind: string;
+
+  @IsOptional()
   @IsBoolean()
   wifi: boolean;
 
+  @IsOptional()
   @IsBoolean()
   wardrobe: boolean;
 

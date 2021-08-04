@@ -12,11 +12,11 @@ export class LocationEntity extends OrganizationModel {
   @Column()
   phone: string;
 
-  @Column({ default: '' })
-  howToFind: string;
-
   @Column()
   disinfection: string;
+
+  @Column({ default: '' })
+  howToFind: string;
 
   @Column({ default: false })
   wifi: boolean;

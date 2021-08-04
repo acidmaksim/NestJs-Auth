@@ -1,5 +1,6 @@
-import { IsDefined, IsIn, IsNotEmpty } from 'class-validator';
+import { IsDefined, IsIn, IsNotEmpty, IsString } from 'class-validator';
 
+// IsString или IsNotEmpty //!!
 export class CreateFinanceitemDto {
   @IsNotEmpty()
   title: string;
@@ -9,6 +10,7 @@ export class CreateFinanceitemDto {
 
   @IsDefined()
   comment: string;
-  //!!
+
+  @IsString()
   profileId: string;
 }

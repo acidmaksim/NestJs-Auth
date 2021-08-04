@@ -1,17 +1,17 @@
-import { FinanceitemType } from '@src/enum/financeitem-type.enum';
 import { OrganizationModel } from 'config/models';
 import { Column, Entity } from 'typeorm';
+import { FinanceitemTypeEnum } from '../types/financeitem-type.enum';
 
-@Entity()
+@Entity({ name: 'financeitems' })
 export class FinanceitemEntity extends OrganizationModel {
   @Column()
   title: string;
 
   @Column({
     type: 'enum',
-    enum: FinanceitemType,
+    enum: FinanceitemTypeEnum,
   })
-  type: FinanceitemType;
+  type: FinanceitemTypeEnum;
 
   @Column({ default: '' })
   comment: string;
