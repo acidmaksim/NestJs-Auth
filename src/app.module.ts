@@ -16,6 +16,8 @@ import { WidgetModule } from '@src/models/widget/widget.module';
 import { PartnerModule } from '@src/models/partner/partner.module';
 import { ClientModule } from '@src/models/client/client.module';
 import { CertificatesaleModule } from '@src/models/certificatesale/certificatesale.module';
+import { TransactionModule } from '@src/models/transaction/transaction.module';
+import { ProfileModule } from '@src/models/profile/profile.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { CertificatesaleModule } from '@src/models/certificatesale/certificatesa
     PartnerModule,
     ClientModule,
     CertificatesaleModule,
+    TransactionModule,
+    ProfileModule,
   ],
   controllers: [],
   providers: [],
