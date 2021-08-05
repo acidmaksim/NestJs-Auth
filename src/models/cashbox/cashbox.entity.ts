@@ -10,10 +10,9 @@ export class CashboxEntity extends OrganizationModel {
   @Column({
     type: 'enum',
     enum: CashboxTypeEnum,
-    default: CashboxTypeEnum.CASH,
   })
   type: CashboxTypeEnum;
 
-  @Column()
+  @Column({ default: '' })
   identificator: string;
 }

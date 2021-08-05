@@ -8,10 +8,10 @@ export class CreateCashboxDto {
   @IsIn(['cash', 'bank', 'paypal', 'yandex', 'tinkoff'])
   type: CashboxTypeEnum;
 
-  @IsString()
   @ValidateIf(
     (o) => o.type === 'paypal' || o.type === 'yandex' || o.type === 'tinkoff',
   )
+  @IsNotEmpty()
   identificator: string;
 
   @IsNotEmpty()
