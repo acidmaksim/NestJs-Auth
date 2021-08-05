@@ -13,26 +13,17 @@ export class CashboxService {
     private service: Repository<CashboxEntity>,
   ) {}
 
-  /**
-   * Create cashbox
-   */
-  async create(cashboxBody: CreateCashboxDto): Promise<CashboxEntity> {
-    const cashbox = this.service.create(cashboxBody);
+  create(cashboxBody: CreateCashboxDto): Promise<CashboxEntity> {
+    const cashbox = new CashboxEntity();
 
-    return this.service.save(cashbox);
+    return this.service.save({ ...cashbox, ...cashboxBody });
   }
 
-  /**
-   * Find all users
-   */
-  async findAll(query) {
-    return await this.service.find(query);
+  findAll(query): Promise<CashboxEntity[]> {
+    return this.service.find(query);
   }
 
-  /**
-   * Find one cashbox
-   */
-  async findOne(cashboxId: string) {
+  async findOne(cashboxId: string): Promise<CashboxEntity> {
     const cashbox = await this.service.findOne(cashboxId, {
       withDeleted: true,
     });
@@ -44,10 +35,10 @@ export class CashboxService {
     return cashbox;
   }
 
-  /**
-   * Update cashbox
-   */
-  async updateCashbox(cashboxId: string, cashboxBody: UpdateCashboxDto) {
+  async updateCashbox(
+    cashboxId: string,
+    cashboxBody: UpdateCashboxDto,
+  ): Promise<CashboxEntity> {
     const cashbox = await this.findOne(cashboxId);
 
     return this.service.save({
@@ -56,19 +47,12 @@ export class CashboxService {
     });
   }
 
-  /**
-   * Delete cashbox
-   */
-
-  async delete(cashboxId: string) {
+  async delete(cashboxId: string): Promise<CashboxEntity> {
     const cashbox = await this.findOne(cashboxId);
     return this.service.softRemove(cashbox);
   }
 
-  /**
-   * Restore cashbox
-   */
-  async recover(cashboxId: string) {
+  async recover(cashboxId: string): Promise<CashboxEntity> {
     const cashbox = await this.findOne(cashboxId);
     return this.service.recover(cashbox);
   }

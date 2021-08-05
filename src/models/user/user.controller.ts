@@ -41,7 +41,6 @@ export class UserController {
     return { success: true };
   }
 
-  @UseGuards(AuthGuard)
   @Get('/currentUser')
   currentUser(@User() user: CurrentUser) {
     return user;

@@ -1,4 +1,4 @@
-import { IsIn, IsString } from 'class-validator';
+import { IsIn, IsNotEmpty, IsString } from 'class-validator';
 import { CashboxTypeEnum } from '../types/cashbox-type.enum';
 
 export class CreateCashboxDto {
@@ -11,6 +11,6 @@ export class CreateCashboxDto {
   @IsString()
   identificator: string;
 
-  @IsString()
+  @IsNotEmpty()
   profileId: string;
 }

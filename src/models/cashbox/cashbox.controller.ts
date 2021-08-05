@@ -6,17 +6,20 @@ import {
   Param,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateCashboxDto } from './dto/create-cashbox.dto';
 import { UpdateCashboxDto } from './dto/update-cashbox.dto';
 import { CashboxService } from './cashbox.service';
-import { QueryWithProfile } from 'src/decorators/query-decorator';
-import { BodyWithProfile } from 'src/decorators/body-decorator';
+import { QueryWithProfile } from '@src/decorators/query-decorator';
+import { BodyWithProfile } from '@src/decorators/body-decorator';
+import { AuthGuard } from '@src/models/user/guards/auth.guard';
 
 @Controller('cashboxes')
 export class CashboxesController {
   constructor(private readonly cashboxsService: CashboxService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   createCashbox(@BodyWithProfile() cashboxData: CreateCashboxDto) {
     return this.cashboxsService.create(cashboxData);

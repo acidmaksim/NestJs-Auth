@@ -8,7 +8,7 @@ import { verify } from 'jsonwebtoken';
 import { JWT_SECRET } from '@src/constants';
 
 @Injectable()
-export class AuthhMiddleware implements NestMiddleware {
+export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
 
   async use(req: ExpressRequest, res: Response, next: NextFunction) {

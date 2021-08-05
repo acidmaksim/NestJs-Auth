@@ -2,12 +2,15 @@ version: '3'
 
 services:
   nestapi:
+    container_name: nestapi
     build:
       context: .
       dockerfile: Dockerfile
     restart: always
-    container_name: nestapi
     env_file: .env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - '3000:3000'
     depends_on:
@@ -49,3 +52,4 @@ volumes:
 networks:
   app-network:
     driver: bridge
+

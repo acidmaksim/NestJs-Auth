@@ -10,5 +10,5 @@ export class TariffEntity extends OrganizationModel {
   color: string;
 
   @Column()
-  price: { [x: string]: number | string };
+  price: string;
 }

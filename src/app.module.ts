@@ -1,4 +1,4 @@
-import { AuthhMiddleware } from '@src/models/user/middlewares/auth.middleware';
+import { AuthMiddleware } from '@src/models/user/middlewares/auth.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { CashboxesModule } from 'src/models/cashbox/cashbox.module';
 
@@ -34,7 +34,7 @@ import { WidgetModule } from '@src/models/widget/widget.module';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthhMiddleware).forRoutes({
+    consumer.apply(AuthMiddleware).forRoutes({
       path: '*',
       method: RequestMethod.ALL,
     });

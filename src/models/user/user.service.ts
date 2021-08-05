@@ -1,4 +1,4 @@
-import { JWT_SECRET } from '@src/constants';
+import { JWT_SECRET } from '@src/constants/index';
 import { UserJwtData } from '@src/interfaces/user-jwt-data';
 import { UserEntity } from './entities/user.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
