@@ -14,6 +14,8 @@ import { RoleModule } from '@src/models/role/role.module';
 import { TariffModule } from '@src/models/tariff/tariff.module';
 import { WidgetModule } from '@src/models/widget/widget.module';
 import { PartnerModule } from '@src/models/partner/partner.module';
+import { ClientModule } from '@src/models/client/client.module';
+import { CertificatesaleModule } from '@src/models/certificatesale/certificatesale.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { PartnerModule } from '@src/models/partner/partner.module';
     TariffModule,
     WidgetModule,
     PartnerModule,
+    ClientModule,
+    CertificatesaleModule,
   ],
   controllers: [],
   providers: [],
