@@ -1,3 +1,4 @@
+import { IsNotBlank } from '@src/extensions/is-not-blank';
 import {
   IsArray,
   IsBoolean,
@@ -7,16 +8,16 @@ import {
 } from 'class-validator';
 
 export class CreateCertificateDto {
-  @IsString()
+  @IsNotBlank()
   photo: string;
 
-  @IsString()
+  @IsNotBlank()
   title: string;
 
   @IsInt()
   validity: number;
 
-  @IsString()
+  @IsNotBlank()
   downloadLink: string;
 
   @IsInt()
@@ -70,6 +71,6 @@ export class CreateCertificateDto {
   @IsOptional()
   questroomsIds: string[];
 
-  @IsString()
+  @IsNotBlank()
   profileId: string;
 }

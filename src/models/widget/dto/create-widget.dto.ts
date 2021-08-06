@@ -1,11 +1,12 @@
-import { IsArray, IsDefined, IsIn, IsJSON, IsString } from 'class-validator';
+import { IsNotBlank } from '@src/extensions/is-not-blank';
+import { IsArray, IsDefined, IsIn, IsJSON } from 'class-validator';
 
 export class CreateWidgetDto {
   @IsArray()
   @IsIn(['oneQuestroom', 'allQuestrooms', 'widgetButton', 'allCertificates'])
   type: string[];
 
-  @IsString()
+  @IsNotBlank()
   color: string;
 
   @IsDefined()
@@ -17,6 +18,6 @@ export class CreateWidgetDto {
   @IsJSON()
   certificateIds: string[];
 
-  @IsString()
+  @IsNotBlank()
   profileId: string;
 }

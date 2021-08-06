@@ -41,4 +41,8 @@ export class LocationEntity extends OrganizationModel {
 
   @Column({ default: 0 })
   sortPosition: number;
+
+  // questroomsCount: number, required: true
+  // cityId: string;
+  // loc: json
 }

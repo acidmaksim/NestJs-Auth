@@ -21,16 +21,19 @@ export class QuestroomController {
   constructor(private readonly questroomsService: QuestroomService) {}
 
   @Post()
-  create(@BodyWithProfile() questroomData: CreateQuestroomDto) {
-    return this.questroomsService.create(questroomData);
+  create(@BodyWithProfile() questroomCreateDto: CreateQuestroomDto) {
+    return this.questroomsService.create(questroomCreateDto);
   }
 
   @Patch(':id')
   update(
-    @Body() questroomData: UpdateQuestroomDto,
+    @Body() questroomUpdateDto: UpdateQuestroomDto,
     @Param('id') questroomId: string,
   ) {
-    return this.questroomsService.updateQuestroom(questroomId, questroomData);
+    return this.questroomsService.updateQuestroom(
+      questroomId,
+      questroomUpdateDto,
+    );
   }
 
   @Get()

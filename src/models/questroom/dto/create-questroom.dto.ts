@@ -1,34 +1,39 @@
 import { Languages } from '@src/enum/languages.enum';
+import { IsNotBlank } from '@src/extensions/is-not-blank';
 import {
   IsArray,
   IsBoolean,
   IsIn,
   IsInt,
+  IsJSON,
   IsOptional,
   IsString,
 } from 'class-validator';
 
 export class CreateQuestroomDto {
-  @IsString()
+  @IsNotBlank()
   title: string;
 
-  @IsString()
+  @IsNotBlank()
   video: string;
 
-  @IsString()
+  @IsNotBlank()
   photo: string;
 
-  @IsString()
+  @IsNotBlank()
   legend: string;
 
-  @IsString()
+  @IsNotBlank()
   importantInformation: string;
 
-  @IsString()
+  @IsNotBlank()
   defaultLanguage: string;
 
-  @IsString()
+  @IsNotBlank()
   locationId: string;
+
+  @IsNotBlank()
+  profileId: string;
 
   @IsArray()
   @IsOptional()
@@ -102,10 +107,23 @@ export class CreateQuestroomDto {
   @IsOptional()
   sortPosition: number;
 
-  @IsBoolean()
-  @IsOptional()
-  ticketSystem: boolean;
+  // @IsBoolean()
+  // @IsOptional()
+  // ticketSystem: boolean;
 
   @IsString()
-  profileId: string;
+  @IsOptional()
+  company: string;
+
+  @IsJSON()
+  @IsArray()
+  tags: string[];
+
+  @IsInt()
+  @IsOptional()
+  playersMin: number;
+
+  @IsInt()
+  @IsOptional()
+  playersMax: number;
 }

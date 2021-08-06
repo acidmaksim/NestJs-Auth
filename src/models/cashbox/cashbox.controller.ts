@@ -27,10 +27,10 @@ export class CashboxesController {
 
   @Patch(':id')
   update(
-    @Body() cashboxCreateDto: UpdateCashboxDto,
+    @Body() cashboxUpdateDto: UpdateCashboxDto,
     @Param('id') cashboxId: string,
   ) {
-    return this.cashboxesService.updateCashbox(cashboxId, cashboxCreateDto);
+    return this.cashboxesService.updateCashbox(cashboxId, cashboxUpdateDto);
   }
 
   @Get()

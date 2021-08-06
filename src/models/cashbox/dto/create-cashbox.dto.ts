@@ -1,5 +1,5 @@
 import { IsNotBlank } from '@src/extensions/is-not-blank';
-import { IsIn, ValidateIf, IsNotEmpty } from 'class-validator';
+import { IsIn, ValidateIf } from 'class-validator';
 import { CashboxTypeEnum } from '../types/cashbox-type.enum';
 
 export class CreateCashboxDto {
@@ -12,9 +12,9 @@ export class CreateCashboxDto {
   @ValidateIf(
     (o) => o.type === 'paypal' || o.type === 'yandex' || o.type === 'tinkoff',
   )
-  @IsNotEmpty()
+  @IsNotBlank()
   identificator: string;
 
-  @IsNotEmpty()
+  @IsNotBlank()
   profileId: string;
 }

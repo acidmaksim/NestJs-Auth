@@ -21,18 +21,18 @@ export class TransactionController {
   constructor(private readonly transactionsService: TransactionService) {}
 
   @Post()
-  create(@BodyWithProfile() transactionData: CreateTransactionDto) {
-    return this.transactionsService.create(transactionData);
+  create(@BodyWithProfile() transactionCreateDto: CreateTransactionDto) {
+    return this.transactionsService.create(transactionCreateDto);
   }
 
   @Patch(':id')
   update(
     @Param('id') transactionId: string,
-    @Body() updateTransactionDto: UpdateTransactionDto,
+    @Body() transactionUpdateDto: UpdateTransactionDto,
   ) {
     return this.transactionsService.updateTransaction(
       transactionId,
-      updateTransactionDto,
+      transactionUpdateDto,
     );
   }
 

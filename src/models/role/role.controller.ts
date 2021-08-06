@@ -21,13 +21,13 @@ export class RoleController {
   constructor(private readonly rolesService: RoleService) {}
 
   @Post()
-  create(@BodyWithProfile() roleData: CreateRoleDto) {
-    return this.rolesService.create(roleData);
+  create(@BodyWithProfile() roleCreateDto: CreateRoleDto) {
+    return this.rolesService.create(roleCreateDto);
   }
 
   @Patch(':id')
-  update(@Param('id') roleId: string, @Body() roleData: UpdateRoleDto) {
-    return this.rolesService.updateRole(roleId, roleData);
+  update(@Param('id') roleId: string, @Body() roleUpdateDto: UpdateRoleDto) {
+    return this.rolesService.updateRole(roleId, roleUpdateDto);
   }
 
   @Get()

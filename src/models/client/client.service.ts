@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { ClientEntity } from './entities/client.entity';
 
 @Injectable()
 export class ClientService {
-  create(createClientDto: CreateClientDto) {
-    return 'This action adds a new client';
+  constructor(
+    @InjectRepository(ClientEntity)
+    private clientRepository: Repository<ClientEntity>,
+  ) {}
+
+  create(createClientDto: CreateClientDto): Promise<ClientEntity> {
+    const client = new ClientEntity();
+    return this.clientRepository.save({ ...client, ...createClientDto });
   }
 
-  findAll() {
-    return `This action returns all client`;
+  findAll(query): Promise<ClientEntity[]> {
+    return this.clientRepository.find(query);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} client`;
+  async findOne(clientId: string): Promise<ClientEntity> {
+    const client = await this.clientRepository.findOne(clientId, {
+      withDeleted: true,
+    });
+
+    if (!client) {
+      throw new NotFoundException();
+    }
+
+    return client;
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  async updateClient(
+    clientId: string,
+    updateClientDto: UpdateClientDto,
+  ): Promise<ClientEntity> {
+    const client = await this.findOne(clientId);
+
+    return this.clientRepository.save({ ...client, ...updateClientDto });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
+  async delete(clientId: string): Promise<ClientEntity> {
+    const client = await this.findOne(clientId);
+    return this.clientRepository.softRemove(client);
+  }
+
+  async recover(clientId: string): Promise<ClientEntity> {
+    const client = await this.findOne(clientId);
+    return this.clientRepository.recover(client);
   }
 }

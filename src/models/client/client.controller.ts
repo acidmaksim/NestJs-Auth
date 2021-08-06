@@ -1,34 +1,56 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
+import { BodyWithProfile } from '@src/decorators/body-decorator';
+import { QueryWithProfile } from '@src/decorators/query-decorator';
+import { AuthGuard } from '../user/guards/auth.guard';
 import { ClientService } from './client.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 
-@Controller('client')
+@UseGuards(AuthGuard)
+@Controller('clients')
 export class ClientController {
-  constructor(private readonly clientService: ClientService) {}
+  constructor(private readonly clientsService: ClientService) {}
 
   @Post()
-  create(@Body() createClientDto: CreateClientDto) {
-    return this.clientService.create(createClientDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.clientService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.clientService.findOne(+id);
+  create(@BodyWithProfile() createClientDto: CreateClientDto) {
+    return this.clientsService.create(createClientDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientService.update(+id, updateClientDto);
+  update(
+    @Param('id') clientId: string,
+    @Body() updateClientDto: UpdateClientDto,
+  ) {
+    return this.clientsService.updateClient(clientId, updateClientDto);
+  }
+
+  @Get()
+  async findAll(@QueryWithProfile() query) {
+    const clients = await this.clientsService.findAll(query);
+    return clients;
+  }
+
+  @Get(':id')
+  findOne(@Param('id') clientId: string) {
+    return this.clientsService.findOne(clientId);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clientService.remove(+id);
+  delete(@Param('id') clientId: string) {
+    return this.clientsService.delete(clientId);
+  }
+
+  @Patch('/recover/:id')
+  recover(@Param('id') clientId: string) {
+    return this.clientsService.recover(clientId);
   }
 }

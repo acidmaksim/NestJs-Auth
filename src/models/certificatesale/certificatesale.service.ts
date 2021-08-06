@@ -1,26 +1,65 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateCertificatesaleDto } from './dto/create-certificatesale.dto';
 import { UpdateCertificatesaleDto } from './dto/update-certificatesale.dto';
+import { CertificatesaleEntity } from './entities/certificatesale.entity';
 
 @Injectable()
 export class CertificatesaleService {
-  create(createCertificatesaleDto: CreateCertificatesaleDto) {
-    return 'This action adds a new certificatesale';
+  constructor(
+    @InjectRepository(CertificatesaleEntity)
+    private certificatesaleRepository: Repository<CertificatesaleEntity>,
+  ) {}
+
+  create(
+    certificatesaleCreateDto: CreateCertificatesaleDto,
+  ): Promise<CertificatesaleEntity> {
+    const certificatesale = new CertificatesaleEntity();
+    return this.certificatesaleRepository.save({
+      ...certificatesale,
+      ...certificatesaleCreateDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all certificatesale`;
+  findAll(query): Promise<CertificatesaleEntity[]> {
+    return this.certificatesaleRepository.find(query);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} certificatesale`;
+  async findOne(certificatesaleId: string): Promise<CertificatesaleEntity> {
+    const certificatesale = this.certificatesaleRepository.findOne(
+      certificatesaleId,
+      { withDeleted: true },
+    );
+
+    if (!certificatesale) {
+      throw new NotFoundException();
+    }
+
+    return certificatesale;
   }
 
-  update(id: number, updateCertificatesaleDto: UpdateCertificatesaleDto) {
-    return `This action updates a #${id} certificatesale`;
+  async updateCertificatesale(
+    certificatesaleId: string,
+    certificatesaleUpdateDto: UpdateCertificatesaleDto,
+  ): Promise<CertificatesaleEntity> {
+    const certificatesale = await this.findOne(certificatesaleId);
+
+    return this.certificatesaleRepository.save({
+      ...certificatesale,
+      ...certificatesaleUpdateDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} certificatesale`;
+  async delete(certificatesaleId: string): Promise<CertificatesaleEntity> {
+    const certificatesale = await this.findOne(certificatesaleId);
+
+    return this.certificatesaleRepository.softRemove(certificatesale);
+  }
+
+  async recover(certificatesaleId: string): Promise<CertificatesaleEntity> {
+    const certificatesale = await this.findOne(certificatesaleId);
+
+    return this.certificatesaleRepository.recover(certificatesale);
   }
 }

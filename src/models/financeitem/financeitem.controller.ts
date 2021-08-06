@@ -21,18 +21,18 @@ export class FinanceitemController {
   constructor(private readonly financeitemsService: FinanceitemService) {}
 
   @Post()
-  create(@BodyWithProfile() financeitemData: CreateFinanceitemDto) {
-    return this.financeitemsService.create(financeitemData);
+  create(@BodyWithProfile() financeitemCreateDto: CreateFinanceitemDto) {
+    return this.financeitemsService.create(financeitemCreateDto);
   }
 
   @Patch(':id')
   update(
-    @Body() financeitemData: UpdateFinanceitemDto,
+    @Body() financeitemUpdateDto: UpdateFinanceitemDto,
     @Param('id') financeitemId: string,
   ) {
     return this.financeitemsService.updateFinanceitem(
       financeitemId,
-      financeitemData,
+      financeitemUpdateDto,
     );
   }
 

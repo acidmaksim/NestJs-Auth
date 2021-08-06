@@ -15,4 +15,7 @@ export class CashboxEntity extends OrganizationModel {
 
   @Column({ default: '' })
   identificator: string;
+
+  // @Column({ default: false })
+  // deleted: boolean;
 }

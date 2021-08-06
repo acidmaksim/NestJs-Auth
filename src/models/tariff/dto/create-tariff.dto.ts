@@ -1,15 +1,16 @@
+import { IsNotBlank } from '@src/extensions/is-not-blank';
 import { IsJSON, IsString } from 'class-validator';
 
 export class CreateTariffDto {
-  @IsString()
+  @IsNotBlank()
   title: string;
 
-  @IsString()
+  @IsNotBlank()
   color: string;
 
   @IsJSON()
   price: string;
 
-  @IsString()
+  @IsNotBlank()
   profileId: string;
 }

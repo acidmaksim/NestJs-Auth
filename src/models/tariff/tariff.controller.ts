@@ -21,13 +21,16 @@ export class TariffController {
   constructor(private readonly tariffsService: TariffService) {}
 
   @Post()
-  create(@BodyWithProfile() tariffData: CreateTariffDto) {
-    return this.tariffsService.create(tariffData);
+  create(@BodyWithProfile() tariffCreateDto: CreateTariffDto) {
+    return this.tariffsService.create(tariffCreateDto);
   }
 
   @Patch(':id')
-  update(@Param('id') tariffId: string, @Body() tariffData: UpdateTariffDto) {
-    return this.tariffsService.updateTariff(tariffId, tariffData);
+  update(
+    @Param('id') tariffId: string,
+    @Body() tariffUpdateDto: UpdateTariffDto,
+  ) {
+    return this.tariffsService.updateTariff(tariffId, tariffUpdateDto);
   }
 
   @Get()

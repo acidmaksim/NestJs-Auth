@@ -83,6 +83,20 @@ export class QuestroomEntity extends OrganizationModel {
   @Column({ default: 1 })
   sortPosition: number;
 
-  @Column({ default: false })
-  ticketSystem: boolean;
+  // @Column({ default: false })
+  // ticketSystem: boolean;
+
+  // loc: json
+  // slug: string, unique: true
+  @Column()
+  company: string;
+
+  @Column({ type: 'json', default: [] })
+  tags: string[];
+
+  @Column({ default: 2 })
+  playersMin: number;
+
+  @Column({ default: 6 })
+  playersMax: number;
 }

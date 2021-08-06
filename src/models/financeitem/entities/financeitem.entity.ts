@@ -15,4 +15,7 @@ export class FinanceitemEntity extends OrganizationModel {
 
   @Column({ default: '' })
   comment: string;
+
+  // technicalType: string, isIn['orders', 'certificates', 'salary']
+  // deleted: string, required: true
 }

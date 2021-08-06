@@ -36,17 +36,17 @@ export class ClientEntity extends OrganizationModel {
   @Column({ default: true })
   sendAds: boolean;
 
-  @Column({ default: 0 })
-  trustIndex: number;
+  // @Column({ default: 0 })
+  // trustIndex: number;
 
-  @Column({ default: 0 })
-  ordersCount: number;
+  // @Column({ default: 0 })
+  // ordersCount: number;
 
-  @Column({ default: 0 })
-  certificatesCount: number;
+  // @Column({ default: 0 })
+  // certificatesCount: number;
 
-  @Column({ default: 0 })
-  communicationsCount: number;
+  // @Column({ default: 0 })
+  // communicationsCount: number;
 
   //   @Column()
   //   deleted?: boolean;

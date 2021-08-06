@@ -1,7 +1,8 @@
+import { IsNotBlank } from '@src/extensions/is-not-blank';
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class CreateRoleDto {
-  @IsString()
+  @IsNotBlank()
   title: string;
 
   @IsBoolean()
@@ -36,6 +37,6 @@ export class CreateRoleDto {
   @IsOptional()
   statisticsAccess: boolean;
 
-  @IsString()
+  @IsNotBlank()
   profileId: string;
 }

@@ -1,9 +1,27 @@
+import { IsNotBlank } from '@src/extensions/is-not-blank';
 import { IsIn, IsInt, IsJSON, IsOptional, IsString } from 'class-validator';
 import { CertificatesaleSourceEnum } from '../types/certificatesale-source.enum';
 import { CertificatesaleDeliveryTypeEnum } from '../types/certificatesales-delivery-type.enum';
 import { CertificatesaleStatusEnum } from '../types/certificatessales-status.enum';
 
 export class CreateCertificatesaleDto {
+  @IsInt()
+  nominal: number;
+  @IsInt()
+  deliveryPrice: number;
+  @IsInt()
+  extraPrice: number;
+  @IsInt()
+  totalPrice: number;
+
+  @IsNotBlank()
+  certificateId: string;
+  @IsNotBlank()
+  code: string;
+
+  @IsNotBlank()
+  profileId: string;
+
   @IsInt()
   @IsOptional()
   expireDate: number;
@@ -58,23 +76,14 @@ export class CreateCertificatesaleDto {
   @IsOptional()
   trackingCompany: string;
 
-  @IsString()
+  @IsNotBlank()
   clientId: string;
-  @IsString()
+  @IsNotBlank()
   name: string;
-  @IsString()
+  @IsNotBlank()
   phone: string;
-  @IsString()
+  @IsNotBlank()
   email: string;
-
-  @IsInt()
-  nominal: number;
-  @IsInt()
-  deliveryPrice: number;
-  @IsInt()
-  extraPrice: number;
-  @IsInt()
-  totalPrice: number;
 
   @IsInt()
   @IsOptional()
@@ -83,14 +92,6 @@ export class CreateCertificatesaleDto {
   @IsInt()
   toPay: number;
 
-  @IsString()
-  certificateId: string;
-  @IsString()
-  code: string;
-
   @IsIn(['www', 'user', 'support', 'agregator'])
   source: CertificatesaleSourceEnum;
-
-  @IsString()
-  profileId: string;
 }

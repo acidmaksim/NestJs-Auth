@@ -1,8 +1,8 @@
 import { OrganizationModel } from 'config/models';
 import { Column, Entity } from 'typeorm';
 
-@Entity({ name: 'options' })
-export class OptionEntity extends OrganizationModel {
+@Entity({ name: 'upsellings' })
+export class UpsellingEntity extends OrganizationModel {
   @Column()
   title: string;
 

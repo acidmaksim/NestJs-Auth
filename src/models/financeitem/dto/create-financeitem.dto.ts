@@ -1,9 +1,10 @@
-import { IsDefined, IsIn, IsOptional, IsString } from 'class-validator';
+import { IsNotBlank } from '@src/extensions/is-not-blank';
+import { IsIn, IsOptional, IsString } from 'class-validator';
 import { FinanceitemTypeEnum } from '../types/financeitem-type.enum';
 
 // IsString или IsNotEmpty //!!
 export class CreateFinanceitemDto {
-  @IsString()
+  @IsNotBlank()
   title: string;
 
   @IsIn(['income', 'expence'])
@@ -13,6 +14,6 @@ export class CreateFinanceitemDto {
   @IsString()
   comment: string;
 
-  @IsString()
+  @IsNotBlank()
   profileId: string;
 }

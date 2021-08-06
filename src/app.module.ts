@@ -9,7 +9,6 @@ import { QuestroomModule } from '@src/models/questroom/questroom.module';
 import { CertificateModule } from '@src/models/certificate/certificate.module';
 import { FinanceitemModule } from '@src/models/financeitem/financeitem.module';
 import { LocationModule } from '@src/models/location/location.module';
-import { OptionModule } from '@src/models/option/option.module';
 import { RoleModule } from '@src/models/role/role.module';
 import { TariffModule } from '@src/models/tariff/tariff.module';
 import { WidgetModule } from '@src/models/widget/widget.module';
@@ -18,6 +17,7 @@ import { ClientModule } from '@src/models/client/client.module';
 import { CertificatesaleModule } from '@src/models/certificatesale/certificatesale.module';
 import { TransactionModule } from '@src/models/transaction/transaction.module';
 import { ProfileModule } from '@src/models/profile/profile.module';
+import { UpsellingModule } from './models/upselling/upselling.module';
 
 @Module({
   imports: [
@@ -29,7 +29,7 @@ import { ProfileModule } from '@src/models/profile/profile.module';
     CertificateModule,
     FinanceitemModule,
     LocationModule,
-    OptionModule,
+    UpsellingModule,
     RoleModule,
     TariffModule,
     WidgetModule,

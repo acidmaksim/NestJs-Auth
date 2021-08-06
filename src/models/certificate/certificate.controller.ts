@@ -20,18 +20,18 @@ export class CertificateController {
   constructor(private readonly certificatesService: CertificateService) {}
 
   @Post()
-  create(@BodyWithProfile() certificateData: CreateCertificateDto) {
-    return this.certificatesService.create(certificateData);
+  create(@BodyWithProfile() createCertificateDto: CreateCertificateDto) {
+    return this.certificatesService.create(createCertificateDto);
   }
 
   @Patch(':id')
   update(
-    @Body() certificateData: UpdateCertificateDto,
+    @Body() updateCertificateDto: UpdateCertificateDto,
     @Param('id') certificateId: string,
   ) {
     return this.certificatesService.updateCertificate(
       certificateId,
-      certificateData,
+      updateCertificateDto,
     );
   }
 

@@ -1,17 +1,21 @@
-import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
+import { IsNotBlank } from '@src/extensions/is-not-blank';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class CreateClientDto {
-  @IsString()
+  @IsNotBlank()
   name: string;
 
-  @IsString()
+  @IsNotBlank()
   surname: string;
 
-  @IsString()
+  @IsNotBlank()
   phone: string;
 
-  @IsString()
+  @IsNotBlank()
   email: string;
+
+  @IsNotBlank()
+  profileId: string;
 
   @IsString()
   @IsOptional()
@@ -40,24 +44,21 @@ export class CreateClientDto {
   @IsOptional()
   sendAds: boolean;
 
-  @IsInt()
-  @IsOptional()
-  trustIndex: number;
+  // @IsInt()
+  // @IsOptional()
+  // trustIndex: number;
 
-  @IsInt()
-  @IsOptional()
-  ordersCount: number;
+  // @IsInt()
+  // @IsOptional()
+  // ordersCount: number;
 
-  @IsInt()
-  @IsOptional()
-  certificatesCount: number;
+  // @IsInt()
+  // @IsOptional()
+  // certificatesCount: number;
 
-  @IsInt()
-  @IsOptional()
-  communicationsCount: number;
-
-  @IsString()
-  profileId: string;
+  // @IsInt()
+  // @IsOptional()
+  // communicationsCount: number;
 
   //   @Column()
   //   deleted?: boolean;

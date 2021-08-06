@@ -21,16 +21,16 @@ export class LocationController {
   constructor(private readonly locationsService: LocationService) {}
 
   @Post()
-  create(@BodyWithProfile() locationData: CreateLocationDto) {
-    return this.locationsService.create(locationData);
+  create(@BodyWithProfile() locationCreateDTO: CreateLocationDto) {
+    return this.locationsService.create(locationCreateDTO);
   }
 
   @Patch(':id')
   update(
-    @Body() locationData: UpdateLocationDto,
+    @Body() locationUpdateDTO: UpdateLocationDto,
     @Param('id') locationId: string,
   ) {
-    return this.locationsService.updateLocation(locationId, locationData);
+    return this.locationsService.updateLocation(locationId, locationUpdateDTO);
   }
 
   @Get()

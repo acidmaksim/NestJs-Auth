@@ -1,22 +1,17 @@
-import {
-  IsBoolean,
-  IsDefined,
-  IsInt,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsNotBlank } from '@src/extensions/is-not-blank';
+import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class CreateLocationDto {
-  @IsString()
+  @IsNotBlank()
   title: string;
 
-  @IsString()
+  @IsNotBlank()
   address: string;
 
-  @IsString()
+  @IsNotBlank()
   phone: string;
 
-  @IsString()
+  @IsNotBlank()
   disinfection: string;
 
   @IsOptional()
@@ -55,6 +50,6 @@ export class CreateLocationDto {
   @IsOptional()
   sortPosition: number;
 
-  @IsString()
+  @IsNotBlank()
   profileId: string;
 }

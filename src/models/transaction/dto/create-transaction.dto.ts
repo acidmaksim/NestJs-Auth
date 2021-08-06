@@ -1,3 +1,4 @@
+import { IsNotBlank } from '@src/extensions/is-not-blank';
 import { IsBoolean, IsIn, IsInt, IsOptional, IsString } from 'class-validator';
 import { TransactionFeeEnum } from '../types/transaction-fee.enum';
 import { TransactionSourceEnum } from '../types/transaction-source.enum';
@@ -55,7 +56,7 @@ export class CreateTransactionDto {
   @IsIn(['user', 'widget', 'agregator', 'client'])
   source: TransactionSourceEnum; // user
 
-  @IsString()
+  @IsNotBlank()
   profileId: string;
 
   //   @Column({

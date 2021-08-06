@@ -1,8 +1,12 @@
+import { IsNotBlank } from '@src/extensions/is-not-blank';
 import { IsOptional, IsString } from 'class-validator';
 
 export class CreatePartnerDto {
-  @IsString()
+  @IsNotBlank()
   title: string;
+
+  @IsNotBlank()
+  profileId: string;
 
   @IsString()
   @IsOptional()
@@ -19,7 +23,4 @@ export class CreatePartnerDto {
   @IsString()
   @IsOptional()
   comment: string;
-
-  @IsString()
-  profileId: string;
 }

@@ -54,4 +54,7 @@ export class CertificateEntity extends OrganizationModel {
 
   @Column('simple-array', { default: [] })
   questroomsIds: string[];
+
+  // @Column({ default: false })
+  // deleted: boolean;
 }
