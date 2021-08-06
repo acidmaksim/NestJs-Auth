@@ -19,7 +19,7 @@ export class FinanceitemService {
 
     return this.financeitmeRepositroy.save({
       ...financeitem,
-      financeitemCreateDto,
+      ...financeitemCreateDto,
     });
   }
 

@@ -47,7 +47,7 @@ export class CreateCertificateDto {
   @IsOptional()
   extraPrice: number;
 
-  @IsInt()
+  @IsString()
   @IsOptional()
   information: string;
 
