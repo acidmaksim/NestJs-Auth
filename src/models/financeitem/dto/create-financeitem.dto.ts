@@ -1,4 +1,5 @@
 import { IsDefined, IsIn, IsOptional, IsString } from 'class-validator';
+import { FinanceitemTypeEnum } from '../types/financeitem-type.enum';
 
 // IsString или IsNotEmpty //!!
 export class CreateFinanceitemDto {
@@ -6,7 +7,7 @@ export class CreateFinanceitemDto {
   title: string;
 
   @IsIn(['income', 'expence'])
-  type: string;
+  type: FinanceitemTypeEnum;
 
   @IsOptional()
   @IsString()

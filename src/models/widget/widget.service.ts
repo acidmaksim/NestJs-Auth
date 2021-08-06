@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateWidgetDto } from './dto/create-widget.dto';
 import { UpdateWidgetDto } from './dto/update-widget.dto';
+import { WidgetEntity } from './entities/widget.entity';
 
 @Injectable()
 export class WidgetService {
-  create(createWidgetDto: CreateWidgetDto) {
-    return 'This action adds a new widget';
+  constructor(
+    @InjectRepository(WidgetEntity)
+    private widgetRepositroy: Repository<WidgetEntity>,
+  ) {}
+
+  create(widgetCreateDto: CreateWidgetDto): Promise<WidgetEntity> {
+    const widget = new WidgetEntity();
+
+    return this.widgetRepositroy.save({ ...widget, ...widgetCreateDto });
   }
 
-  findAll() {
-    return `This action returns all widget`;
+  findAll(query): Promise<WidgetEntity[]> {
+    return this.widgetRepositroy.find(query);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} widget`;
+  async findOne(widgetId: string): Promise<WidgetEntity> {
+    const widget = await this.widgetRepositroy.findOne(widgetId, {
+      withDeleted: true,
+    });
+
+    if (!widget) {
+      throw new NotFoundException();
+    }
+    return widget;
   }
 
-  update(id: number, updateWidgetDto: UpdateWidgetDto) {
-    return `This action updates a #${id} widget`;
+  async updateWidget(
+    widgetId: string,
+    widgetUpdateDto: UpdateWidgetDto,
+  ): Promise<WidgetEntity> {
+    const widget = await this.findOne(widgetId);
+
+    return this.widgetRepositroy.save({ ...widget, ...widgetUpdateDto });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} widget`;
+  async delete(widgetId: string): Promise<WidgetEntity> {
+    const widget = await this.findOne(widgetId);
+    return this.widgetRepositroy.softRemove(widget);
+  }
+
+  async recover(widgetId: string): Promise<WidgetEntity> {
+    const widget = await this.findOne(widgetId);
+    return this.widgetRepositroy.recover(widget);
   }
 }

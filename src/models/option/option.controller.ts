@@ -6,37 +6,51 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { OptionService } from './option.service';
 import { CreateOptionDto } from './dto/create-option.dto';
 import { UpdateOptionDto } from './dto/update-option.dto';
+import { AuthGuard } from '../user/guards/auth.guard';
+import { BodyWithProfile } from '@src/decorators/body-decorator';
+import { QueryWithProfile } from '@src/decorators/query-decorator';
 
-@Controller('option')
+@UseGuards(AuthGuard)
+@Controller('options')
 export class OptionController {
-  constructor(private readonly optionService: OptionService) {}
+  constructor(private readonly optionsService: OptionService) {}
 
   @Post()
-  create(@Body() createOptionDto: CreateOptionDto) {
-    return this.optionService.create(createOptionDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.optionService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.optionService.findOne(+id);
+  create(@BodyWithProfile() optionCreateDto: CreateOptionDto) {
+    return this.optionsService.create(optionCreateDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOptionDto: UpdateOptionDto) {
-    return this.optionService.update(+id, updateOptionDto);
+  update(
+    @Param('id') optionId: string,
+    @Body() optionCreateDto: UpdateOptionDto,
+  ) {
+    return this.optionsService.updateOption(optionId, optionCreateDto);
+  }
+
+  @Get()
+  async getAll(@QueryWithProfile() query) {
+    const options = await this.optionsService.findAll(query);
+    return options;
+  }
+
+  @Get(':id')
+  getOne(@Param('id') optionId: string) {
+    return this.optionsService.findOne(optionId);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.optionService.remove(+id);
+  delete(@Param('id') optionId: string) {
+    return this.optionsService.delete(optionId);
+  }
+
+  @Patch('/recover/:id')
+  recover(@Param('id') optionId: string) {
+    return this.optionsService.recover(optionId);
   }
 }

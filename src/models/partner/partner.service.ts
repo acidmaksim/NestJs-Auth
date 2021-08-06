@@ -1,26 +1,58 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
+import { PartnerEntity } from './entities/partner.entity';
 
 @Injectable()
 export class PartnerService {
-  create(createPartnerDto: CreatePartnerDto) {
-    return 'This action adds a new partner';
+  constructor(
+    @InjectRepository(PartnerEntity)
+    private partnerRepository: Repository<PartnerEntity>,
+  ) {}
+
+  create(partnerCreateDto: CreatePartnerDto): Promise<PartnerEntity> {
+    const partner = new PartnerEntity();
+
+    return this.partnerRepository.save({ ...partner, ...partnerCreateDto });
   }
 
-  findAll() {
-    return `This action returns all partner`;
+  findAll(query): Promise<PartnerEntity[]> {
+    return this.partnerRepository.find(query);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} partner`;
+  async findOne(partnerId: string): Promise<PartnerEntity> {
+    const partner = this.partnerRepository.findOne(partnerId, {
+      withDeleted: true,
+    });
+
+    if (!partner) {
+      throw new NotFoundException();
+    }
+
+    return partner;
   }
 
-  update(id: number, updatePartnerDto: UpdatePartnerDto) {
-    return `This action updates a #${id} partner`;
+  async update(
+    partnerId: string,
+    partnerUpdateDto: UpdatePartnerDto,
+  ): Promise<PartnerEntity> {
+    const partner = await this.findOne(partnerId);
+
+    return this.partnerRepository.save({
+      ...partner,
+      ...partnerUpdateDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} partner`;
+  async delete(partnerId: string): Promise<PartnerEntity> {
+    const partner = await this.findOne(partnerId);
+    return this.partnerRepository.softRemove(partner);
+  }
+
+  async recover(partnerId: string): Promise<PartnerEntity> {
+    const partner = await this.findOne(partnerId);
+    return this.partnerRepository.recover(partner);
   }
 }

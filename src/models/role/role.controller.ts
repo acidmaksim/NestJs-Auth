@@ -1,34 +1,53 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { AuthGuard } from '../user/guards/auth.guard';
+import { BodyWithProfile } from '@src/decorators/body-decorator';
+import { QueryWithProfile } from '@src/decorators/query-decorator';
 
-@Controller('role')
+@UseGuards(AuthGuard)
+@Controller('roles')
 export class RoleController {
-  constructor(private readonly roleService: RoleService) {}
+  constructor(private readonly rolesService: RoleService) {}
 
   @Post()
-  create(@Body() createRoleDto: CreateRoleDto) {
-    return this.roleService.create(createRoleDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.roleService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.roleService.findOne(+id);
+  create(@BodyWithProfile() roleData: CreateRoleDto) {
+    return this.rolesService.create(roleData);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
-    return this.roleService.update(+id, updateRoleDto);
+  update(@Param('id') roleId: string, @Body() roleData: UpdateRoleDto) {
+    return this.rolesService.updateRole(roleId, roleData);
+  }
+
+  @Get()
+  async getAll(@QueryWithProfile() query) {
+    const roles = await this.rolesService.findAll(query);
+    return roles;
+  }
+
+  @Get(':id')
+  getOne(@Param('id') roleId: string) {
+    return this.rolesService.findOne(roleId);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.roleService.remove(+id);
+  delete(@Param('id') roleId: string) {
+    return this.rolesService.delete(roleId);
+  }
+
+  @Patch('/recover/:id')
+  recover(@Param('id') roleId: string) {
+    return this.rolesService.recover(roleId);
   }
 }

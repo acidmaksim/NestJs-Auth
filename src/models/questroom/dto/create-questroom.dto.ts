@@ -1,3 +1,4 @@
+import { Languages } from '@src/enum/languages.enum';
 import {
   IsArray,
   IsBoolean,
@@ -75,7 +76,7 @@ export class CreateQuestroomDto {
 
   @IsIn(['en', 'de', 'ru'])
   @IsOptional()
-  languages: string;
+  languages: Languages;
 
   @IsBoolean()
   @IsOptional()

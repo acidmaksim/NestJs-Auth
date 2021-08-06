@@ -6,42 +6,51 @@ import {
   Patch,
   Param,
   Delete,
-  ValidationPipe,
-  UsePipes,
 } from '@nestjs/common';
 import { QuestroomService } from './questroom.service';
 import { CreateQuestroomDto } from './dto/create-questroom.dto';
 import { UpdateQuestroomDto } from './dto/update-questroom.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '../user/guards/auth.guard';
+import { BodyWithProfile } from '@src/decorators/body-decorator';
+import { QueryWithProfile } from '@src/decorators/query-decorator';
 
-@Controller('questroom')
+@UseGuards(AuthGuard)
+@Controller('questrooms')
 export class QuestroomController {
-  constructor(private readonly questroomService: QuestroomService) {}
+  constructor(private readonly questroomsService: QuestroomService) {}
 
   @Post()
-  create(@Body() createQuestroomDto: CreateQuestroomDto) {
-    return this.questroomService.create(createQuestroomDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.questroomService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.questroomService.findOne(+id);
+  create(@BodyWithProfile() questroomData: CreateQuestroomDto) {
+    return this.questroomsService.create(questroomData);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
-    @Body() updateQuestroomDto: UpdateQuestroomDto,
+    @Body() questroomData: UpdateQuestroomDto,
+    @Param('id') questroomId: string,
   ) {
-    return this.questroomService.update(+id, updateQuestroomDto);
+    return this.questroomsService.updateQuestroom(questroomId, questroomData);
+  }
+
+  @Get()
+  async getAll(@QueryWithProfile() query) {
+    const questroom = await this.questroomsService.findAll(query);
+    return questroom;
+  }
+
+  @Get(':id')
+  getOne(@Param('id') questroomId: string) {
+    return this.questroomsService.findOne(questroomId);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.questroomService.remove(+id);
+  delete(@Param('id') questroomId: string) {
+    return this.questroomsService.delete(questroomId);
+  }
+
+  @Delete('/recover/:id')
+  recover(@Param('id') questroomId: string) {
+    return this.questroomsService.recover(questroomId);
   }
 }

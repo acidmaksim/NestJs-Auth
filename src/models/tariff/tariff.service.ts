@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateTariffDto } from './dto/create-tariff.dto';
 import { UpdateTariffDto } from './dto/update-tariff.dto';
+import { TariffEntity } from './entities/tariff.entity';
 
 @Injectable()
 export class TariffService {
-  create(createTariffDto: CreateTariffDto) {
-    return 'This action adds a new tariff';
+  constructor(
+    @InjectRepository(TariffEntity)
+    private tariffRepository: Repository<TariffEntity>,
+  ) {}
+
+  create(tariffCreateDto: CreateTariffDto): Promise<TariffEntity> {
+    const tariff = new TariffEntity();
+    return this.tariffRepository.save({ ...tariff, ...tariffCreateDto });
   }
 
-  findAll() {
-    return `This action returns all tariff`;
+  findAll(query): Promise<TariffEntity[]> {
+    return this.tariffRepository.find(query);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tariff`;
+  async findOne(tariffId: string): Promise<TariffEntity> {
+    const tariff = await this.tariffRepository.findOne(tariffId, {
+      withDeleted: true,
+    });
+
+    if (!tariff) {
+      throw new NotFoundException();
+    }
+
+    return tariff;
   }
 
-  update(id: number, updateTariffDto: UpdateTariffDto) {
-    return `This action updates a #${id} tariff`;
+  async updateTariff(
+    tariffId: string,
+    tariffUpdateDto: UpdateTariffDto,
+  ): Promise<TariffEntity> {
+    const tariff = await this.findOne(tariffId);
+
+    return this.tariffRepository.save({ ...tariff, ...tariffUpdateDto });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tariff`;
+  async delete(tariffId: string): Promise<TariffEntity> {
+    const tariff = await this.findOne(tariffId);
+    return this.tariffRepository.softRemove(tariff);
+  }
+
+  async recover(tariffId: string): Promise<TariffEntity> {
+    const tariff = await this.findOne(tariffId);
+    return this.tariffRepository.recover(tariff);
   }
 }

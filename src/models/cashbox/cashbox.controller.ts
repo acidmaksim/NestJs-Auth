@@ -18,11 +18,11 @@ import { AuthGuard } from '@src/models/user/guards/auth.guard';
 @UseGuards(AuthGuard)
 @Controller('cashboxes')
 export class CashboxesController {
-  constructor(private readonly cashboxsService: CashboxService) {}
+  constructor(private readonly cashboxesService: CashboxService) {}
 
   @Post()
   create(@BodyWithProfile() cashboxData: CreateCashboxDto) {
-    return this.cashboxsService.create(cashboxData);
+    return this.cashboxesService.create(cashboxData);
   }
 
   @Patch(':id')
@@ -30,27 +30,27 @@ export class CashboxesController {
     @Body() cashboxData: UpdateCashboxDto,
     @Param('id') cashboxId: string,
   ) {
-    return this.cashboxsService.updateCashbox(cashboxId, cashboxData);
+    return this.cashboxesService.updateCashbox(cashboxId, cashboxData);
   }
 
   @Get()
   async getAll(@QueryWithProfile() query) {
-    const cashboxs = await this.cashboxsService.findAll(query);
-    return cashboxs;
+    const cashboxes = await this.cashboxesService.findAll(query);
+    return cashboxes;
   }
 
   @Get(':id')
   getOne(@Param('id') cashboxId: string) {
-    return this.cashboxsService.findOne(cashboxId);
+    return this.cashboxesService.findOne(cashboxId);
   }
 
   @Delete(':id')
   delete(@Param('id') cashboxId: string) {
-    return this.cashboxsService.delete(cashboxId);
+    return this.cashboxesService.delete(cashboxId);
   }
 
   @Patch('/recover/:id')
   recover(@Param('id') cashboxId: string) {
-    return this.cashboxsService.recover(cashboxId);
+    return this.cashboxesService.recover(cashboxId);
   }
 }

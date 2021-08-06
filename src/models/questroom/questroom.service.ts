@@ -1,26 +1,60 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateQuestroomDto } from './dto/create-questroom.dto';
 import { UpdateQuestroomDto } from './dto/update-questroom.dto';
+import { QuestroomEntity } from './entities/questroom.entity';
 
 @Injectable()
 export class QuestroomService {
-  create(createQuestroomDto: CreateQuestroomDto) {
-    return 'This action adds a new questroom';
+  constructor(
+    @InjectRepository(QuestroomEntity)
+    private questroomRepository: Repository<QuestroomEntity>,
+  ) {}
+
+  create(questroomCreateDto: CreateQuestroomDto): Promise<QuestroomEntity> {
+    const questroom = new QuestroomEntity();
+
+    return this.questroomRepository.save({
+      ...questroom,
+      ...questroomCreateDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all questroom`;
+  findAll(query): Promise<QuestroomEntity[]> {
+    return this.questroomRepository.find(query);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} questroom`;
+  async findOne(questroomId: string): Promise<QuestroomEntity> {
+    const questroom = await this.questroomRepository.findOne(questroomId, {
+      withDeleted: true,
+    });
+
+    if (!questroom) {
+      throw new NotFoundException();
+    }
+    return questroom;
   }
 
-  update(id: number, updateQuestroomDto: UpdateQuestroomDto) {
-    return `This action updates a #${id} questroom`;
+  updateQuestroom(
+    questroomId: string,
+    questroomUpdateDto: UpdateQuestroomDto,
+  ): Promise<QuestroomEntity> {
+    const questroom = this.findOne(questroomId);
+
+    return this.questroomRepository.save({
+      ...questroom,
+      ...questroomUpdateDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} questroom`;
+  async delete(questroomId: string): Promise<QuestroomEntity> {
+    const questroom = await this.findOne(questroomId);
+    return this.questroomRepository.softRemove(questroom);
+  }
+
+  async recover(questroomId: string): Promise<QuestroomEntity> {
+    const questroom = await this.findOne(questroomId);
+    return this.questroomRepository.recover(questroom);
   }
 }

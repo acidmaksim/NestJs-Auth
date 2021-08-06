@@ -1,26 +1,65 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { TransactionEntity } from './entities/transaction.entity';
 
 @Injectable()
 export class TransactionService {
-  create(createTransactionDto: CreateTransactionDto) {
-    return 'This action adds a new transaction';
+  constructor(
+    @InjectRepository(TransactionEntity)
+    private transactionRepository: Repository<TransactionEntity>,
+  ) {}
+
+  create(
+    transactionCreateDto: CreateTransactionDto,
+  ): Promise<TransactionEntity> {
+    const transaction = new TransactionEntity();
+
+    return this.transactionRepository.save({
+      ...transaction,
+      ...transactionCreateDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all transaction`;
+  findAll(query): Promise<TransactionEntity[]> {
+    return this.transactionRepository.find(query);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} transaction`;
+  async findOne(transactionId: string): Promise<TransactionEntity> {
+    const transaction = await this.transactionRepository.findOne(
+      transactionId,
+      {
+        withDeleted: true,
+      },
+    );
+
+    if (!transaction) {
+      throw new NotFoundException();
+    }
+    return transaction;
   }
 
-  update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return `This action updates a #${id} transaction`;
+  async updateTransaction(
+    transactionId: string,
+    transactionUpdateDto: UpdateTransactionDto,
+  ) {
+    const transaction = await this.findOne(transactionId);
+
+    return this.transactionRepository.save({
+      ...transaction,
+      ...transactionUpdateDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} transaction`;
+  async delete(transactionId: string): Promise<TransactionEntity> {
+    const cashbox = await this.findOne(transactionId);
+    return this.transactionRepository.softRemove(cashbox);
+  }
+
+  async recover(transactionId: string): Promise<TransactionEntity> {
+    const cashbox = await this.findOne(transactionId);
+    return this.transactionRepository.recover(cashbox);
   }
 }

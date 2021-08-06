@@ -6,40 +6,49 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
+import { BodyWithProfile } from '@src/decorators/body-decorator';
+import { QueryWithProfile } from '@src/decorators/query-decorator';
+import { AuthGuard } from '../user/guards/auth.guard';
 import { CertificateService } from './certificate.service';
 import { CreateCertificateDto } from './dto/create-certificate.dto';
 import { UpdateCertificateDto } from './dto/update-certificate.dto';
 
-@Controller('certificate')
+@UseGuards(AuthGuard)
+@Controller('certificates')
 export class CertificateController {
-  constructor(private readonly certificateService: CertificateService) {}
+  constructor(private readonly certificatesService: CertificateService) {}
 
   @Post()
-  create(@Body() createCertificateDto: CreateCertificateDto) {
-    return this.certificateService.create(createCertificateDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.certificateService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.certificateService.findOne(+id);
+  create(@BodyWithProfile() certificateData: CreateCertificateDto) {
+    return this.certificatesService.create(certificateData);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
-    @Body() updateCertificateDto: UpdateCertificateDto,
+    @Body() certificateData: UpdateCertificateDto,
+    @Param('id') certificateId: string,
   ) {
-    return this.certificateService.update(+id, updateCertificateDto);
+    return this.certificatesService.updateCertificate(
+      certificateId,
+      certificateData,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.certificateService.remove(+id);
+  @Get()
+  async getAll(@QueryWithProfile() query) {
+    const certificate = await this.certificatesService.findAll(query);
+    return certificate;
+  }
+
+  @Get(':id')
+  getOne(@Param('id') certificateId: string) {
+    return this.certificatesService.findOne(certificateId);
+  }
+
+  @Patch('/recover/:id')
+  recover(@Param('id') certificateId: string) {
+    return this.certificatesService.recover(certificateId);
   }
 }
