@@ -21,16 +21,16 @@ export class CashboxesController {
   constructor(private readonly cashboxesService: CashboxService) {}
 
   @Post()
-  create(@BodyWithProfile() cashboxData: CreateCashboxDto) {
-    return this.cashboxesService.create(cashboxData);
+  create(@BodyWithProfile() cashboxCreateDto: CreateCashboxDto) {
+    return this.cashboxesService.create(cashboxCreateDto);
   }
 
   @Patch(':id')
   update(
-    @Body() cashboxData: UpdateCashboxDto,
+    @Body() cashboxCreateDto: UpdateCashboxDto,
     @Param('id') cashboxId: string,
   ) {
-    return this.cashboxesService.updateCashbox(cashboxId, cashboxData);
+    return this.cashboxesService.updateCashbox(cashboxId, cashboxCreateDto);
   }
 
   @Get()

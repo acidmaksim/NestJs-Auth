@@ -1,8 +1,9 @@
-import { IsIn, IsString, ValidateIf, IsNotEmpty } from 'class-validator';
+import { IsNotBlank } from '@src/extensions/is-not-blank';
+import { IsIn, ValidateIf, IsNotEmpty } from 'class-validator';
 import { CashboxTypeEnum } from '../types/cashbox-type.enum';
 
 export class CreateCashboxDto {
-  @IsString()
+  @IsNotBlank()
   title: string;
 
   @IsIn(['cash', 'bank', 'paypal', 'yandex', 'tinkoff'])

@@ -17,7 +17,7 @@ import { QueryWithProfile } from '@src/decorators/query-decorator';
 
 @UseGuards(AuthGuard)
 @Controller('financeitems')
-export class FinanceitemsController {
+export class FinanceitemController {
   constructor(private readonly financeitemsService: FinanceitemService) {}
 
   @Post()

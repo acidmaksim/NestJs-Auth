@@ -3,12 +3,7 @@ import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'certificates' })
 export class CertificateEntity extends OrganizationModel {
-  @Column()
-  photo: string;
-
-  @Column('simple-array')
-  photos: string[];
-
+  // мише - подумать точно ли обязательные фото
   @Column()
   title: string;
 
@@ -19,7 +14,13 @@ export class CertificateEntity extends OrganizationModel {
   downloadLink: string;
 
   @Column()
+  photo: string;
+
+  @Column()
   nominal: number;
+
+  @Column('simple-array', { default: [] })
+  photos: string[];
 
   @Column({ default: false })
   emailPossibility: boolean;
@@ -51,6 +52,6 @@ export class CertificateEntity extends OrganizationModel {
   @Column({ default: true })
   allQuestrooms: boolean;
 
-  @Column('simple-array')
+  @Column('simple-array', { default: [] })
   questroomsIds: string[];
 }
