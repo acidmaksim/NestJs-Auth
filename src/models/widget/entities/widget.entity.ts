@@ -1,3 +1,4 @@
+import { ValidateIf } from 'class-validator';
 import { OrganizationModel } from 'config/models';
 import { Column, Entity } from 'typeorm';
 import { WidgetTypeEnum } from '../types/widget-type.enum';
@@ -8,7 +9,7 @@ export class WidgetEntity extends OrganizationModel {
     type: 'enum',
     enum: WidgetTypeEnum,
   })
-  type: string[];
+  type: WidgetTypeEnum;
 
   @Column()
   color: string;

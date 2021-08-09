@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { BodyWithProfile } from '@src/decorators/body-decorator';
 import { QueryWithProfile } from '@src/decorators/query-decorator';
@@ -44,6 +45,11 @@ export class CertificateController {
   @Get(':id')
   getOne(@Param('id') certificateId: string) {
     return this.certificatesService.findOne(certificateId);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') certificateId: string) {
+    return this.certificatesService.delete(certificateId);
   }
 
   @Patch('/recover/:id')

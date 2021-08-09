@@ -14,8 +14,8 @@ export class CreateLocationDto {
   @IsNotBlank()
   disinfection: string;
 
-  @IsOptional()
   @IsString()
+  @IsOptional()
   howToFind: string;
 
   @IsOptional()
@@ -38,7 +38,7 @@ export class CreateLocationDto {
   @IsOptional()
   ventilation: boolean;
 
-  @IsBoolean()
+  @IsInt()
   @IsOptional()
   waitingAreaSize: number;
 
