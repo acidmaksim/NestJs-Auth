@@ -11,9 +11,11 @@ export class CreateUpsellingDto {
   @IsOptional()
   description: string;
 
+  @IsOptional()
   @IsBoolean()
   allQuestrooms: boolean;
 
+  @IsOptional()
   @IsJSON()
   questroomsIds?: string[];
 

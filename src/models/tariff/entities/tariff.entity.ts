@@ -9,6 +9,6 @@ export class TariffEntity extends OrganizationModel {
   @Column()
   color: string;
 
-  @Column()
-  price: string;
+  @Column({ type: 'jsonb' })
+  price: { [x: string]: string };
 }

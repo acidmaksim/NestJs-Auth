@@ -17,7 +17,11 @@ import { ClientModule } from '@src/models/client/client.module';
 import { CertificatesaleModule } from '@src/models/certificatesale/certificatesale.module';
 import { TransactionModule } from '@src/models/transaction/transaction.module';
 import { ProfileModule } from '@src/models/profile/profile.module';
-import { UpsellingModule } from './models/upselling/upselling.module';
+import { UpsellingModule } from '@src/models/upselling/upselling.module';
+import { OrderModule } from '@src/models/order/order.module';
+import { OrderUpsellingModule } from '@src/models/order-upselling/order-upselling.module';
+import { OrderDiscountModule } from '@src/models/order-discount/order-discount.module';
+import { OrderPenaltyModule } from '@src/models/order-penalty/order-penalty.module';
 
 @Module({
   imports: [
@@ -29,7 +33,6 @@ import { UpsellingModule } from './models/upselling/upselling.module';
     CertificateModule,
     FinanceitemModule,
     LocationModule,
-    UpsellingModule,
     RoleModule,
     TariffModule,
     WidgetModule,
@@ -38,6 +41,11 @@ import { UpsellingModule } from './models/upselling/upselling.module';
     CertificatesaleModule,
     TransactionModule,
     ProfileModule,
+    OrderModule,
+    UpsellingModule,
+    OrderUpsellingModule,
+    OrderDiscountModule,
+    OrderPenaltyModule,
   ],
   controllers: [],
   providers: [],

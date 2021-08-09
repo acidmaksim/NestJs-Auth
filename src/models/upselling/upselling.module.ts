@@ -10,5 +10,6 @@ import { UpsellingService } from './upselling.service';
   imports: [TypeOrmModule.forFeature([UpsellingEntity])],
   controllers: [UpsellingController],
   providers: [UpsellingService],
+  exports: [UpsellingService],
 })
 export class UpsellingModule {}

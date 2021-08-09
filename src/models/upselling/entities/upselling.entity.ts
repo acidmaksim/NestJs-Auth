@@ -15,6 +15,6 @@ export class UpsellingEntity extends OrganizationModel {
   @Column({ default: true })
   allQuestrooms: boolean;
 
-  @Column({ type: 'json' })
-  questroomsIds?: string[];
+  // @Column({ type: 'json' })
+  // questroomsIds?: string[];
 }
