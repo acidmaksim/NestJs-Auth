@@ -22,10 +22,10 @@ export class CertificatesaleEntity extends OrganizationModel {
   @Column({ default: '' })
   clientComment: string;
 
-  @Column({ type: 'json' })
+  @Column({ type: 'json', default: {} })
   photos: string[];
 
-  @Column({ type: 'json' })
+  @Column({ type: 'json', default: {} })
   technicalPhotos: string[];
 
   @Column({

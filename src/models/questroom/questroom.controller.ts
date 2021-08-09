@@ -52,7 +52,7 @@ export class QuestroomController {
     return this.questroomsService.delete(questroomId);
   }
 
-  @Delete('/recover/:id')
+  @Patch('/recover/:id')
   recover(@Param('id') questroomId: string) {
     return this.questroomsService.recover(questroomId);
   }

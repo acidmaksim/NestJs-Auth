@@ -35,7 +35,7 @@ export class CreateQuestroomDto {
   @IsNotBlank()
   profileId: string;
 
-  @IsArray()
+  // @IsArray()
   @IsOptional()
   photos: string[];
 
@@ -115,8 +115,9 @@ export class CreateQuestroomDto {
   @IsOptional()
   company: string;
 
-  @IsJSON()
+  // @IsJSON()
   @IsArray()
+  @IsOptional()
   tags: string[];
 
   @IsInt()

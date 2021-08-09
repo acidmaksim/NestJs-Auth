@@ -5,6 +5,7 @@ import { TransactionSourceEnum } from '../types/transaction-source.enum';
 import { TransactionTypeEnum } from '../types/transaction-type.enum';
 
 export class CreateTransactionDto {
+  @IsOptional()
   @IsIn(['income', 'expense'])
   type: TransactionTypeEnum;
 
@@ -54,6 +55,7 @@ export class CreateTransactionDto {
   fee: TransactionFeeEnum; // 0
 
   @IsIn(['user', 'widget', 'agregator', 'client'])
+  @IsOptional()
   source: TransactionSourceEnum; // user
 
   @IsNotBlank()

@@ -1,11 +1,12 @@
 import { IsNotBlank } from '@src/extensions/is-not-blank';
-import { IsObject } from 'class-validator';
+import { IsObject, IsOptional, IsString } from 'class-validator';
 
 export class CreateTariffDto {
   @IsNotBlank()
   title: string;
 
-  @IsNotBlank()
+  @IsString()
+  @IsOptional()
   color: string;
 
   @IsObject()

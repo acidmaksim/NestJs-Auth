@@ -27,6 +27,7 @@ export class CreateCertificatesaleDto {
   expireDate: number;
 
   @IsIn(['new', 'sended', 'used', 'annul', 'hold'])
+  @IsOptional()
   status: CertificatesaleStatusEnum;
 
   @IsString()
@@ -37,11 +38,11 @@ export class CreateCertificatesaleDto {
   @IsOptional()
   clientComment: string;
 
-  @IsJSON()
+  // @IsJSON()
   @IsOptional()
   photos: string[];
 
-  @IsJSON()
+  // @IsJSON()
   @IsOptional()
   technicalPhotos: string[];
 
@@ -93,5 +94,6 @@ export class CreateCertificatesaleDto {
   toPay: number;
 
   @IsIn(['www', 'user', 'support', 'agregator'])
+  @IsOptional()
   source: CertificatesaleSourceEnum;
 }
