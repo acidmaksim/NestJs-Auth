@@ -13,7 +13,7 @@ export class QuestroomEntity extends OrganizationModel {
   @Column()
   photo: string;
 
-  @Column('simple-array')
+  @Column('simple-array', { default: [] })
   photos: string[];
 
   @Column({ default: 60 })
@@ -71,7 +71,7 @@ export class QuestroomEntity extends OrganizationModel {
   @Column({ default: 7 })
   minDaysForFreeCanceling: number;
 
-  @Column('simple-array')
+  @Column('simple-array', { default: [] })
   questroomIds: string[];
 
   @Column({ default: '' })

@@ -17,9 +17,9 @@ export class WidgetEntity extends OrganizationModel {
   @Column()
   questroomId: string;
 
-  @Column({ type: 'json' })
+  @Column('simple-array', { default: [] })
   questroomIds: string[];
 
-  @Column({ type: 'json' })
+  @Column('simple-array', { default: [] })
   certificateIds: string[];
 }

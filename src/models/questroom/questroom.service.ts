@@ -36,11 +36,11 @@ export class QuestroomService {
     return questroom;
   }
 
-  updateQuestroom(
+  async updateQuestroom(
     questroomId: string,
     questroomUpdateDto: UpdateQuestroomDto,
   ): Promise<QuestroomEntity> {
-    const questroom = this.findOne(questroomId);
+    const questroom = await this.findOne(questroomId);
 
     return this.questroomRepository.save({
       ...questroom,

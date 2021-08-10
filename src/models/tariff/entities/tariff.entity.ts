@@ -6,7 +6,7 @@ export class TariffEntity extends OrganizationModel {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ default: '' })
   color: string;
 
   @Column({ type: 'jsonb' })

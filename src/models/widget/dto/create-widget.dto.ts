@@ -22,12 +22,10 @@ export class CreateWidgetDto {
   questroomId: string;
 
   @IsArray()
-  @ValidateIf((o) => o.type === 'allQuestrooms' || o.type === 'widgetButton')
   @IsOptional()
   questroomIds: string[];
 
   @IsArray()
-  @ValidateIf((o) => o.type === 'widgetButton' || o.type === 'allCertificates')
   @IsOptional()
   certificateIds: string[];
 

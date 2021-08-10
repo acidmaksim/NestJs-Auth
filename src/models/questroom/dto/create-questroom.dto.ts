@@ -5,7 +5,6 @@ import {
   IsBoolean,
   IsIn,
   IsInt,
-  IsJSON,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -35,7 +34,7 @@ export class CreateQuestroomDto {
   @IsNotBlank()
   profileId: string;
 
-  // @IsArray()
+  @IsArray()
   @IsOptional()
   photos: string[];
 

@@ -31,7 +31,6 @@ export class CashboxService {
     if (!cashbox) {
       throw new NotFoundException();
     }
-
     return cashbox;
   }
 

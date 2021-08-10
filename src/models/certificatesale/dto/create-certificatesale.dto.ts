@@ -1,5 +1,12 @@
 import { IsNotBlank } from '@src/extensions/is-not-blank';
-import { IsIn, IsInt, IsJSON, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsIn,
+  IsInt,
+  IsJSON,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { CertificatesaleSourceEnum } from '../types/certificatesale-source.enum';
 import { CertificatesaleDeliveryTypeEnum } from '../types/certificatesales-delivery-type.enum';
 import { CertificatesaleStatusEnum } from '../types/certificatessales-status.enum';
@@ -38,11 +45,11 @@ export class CreateCertificatesaleDto {
   @IsOptional()
   clientComment: string;
 
-  // @IsJSON()
+  @IsArray()
   @IsOptional()
   photos: string[];
 
-  // @IsJSON()
+  @IsArray()
   @IsOptional()
   technicalPhotos: string[];
 
