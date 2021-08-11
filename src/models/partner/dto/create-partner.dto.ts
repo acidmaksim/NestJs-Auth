@@ -6,21 +6,20 @@ export class CreatePartnerDto {
   title: string;
 
   @IsNotBlank()
-  profileId: string;
-
-  @IsString()
-  @IsOptional()
-  contact: string;
-
-  @IsString()
-  @IsOptional()
-  email: string;
-
-  @IsString()
-  @IsOptional()
   phone: string;
+
+  @IsNotBlank()
+  managerName: string;
+
+  // email: Type
+
+  @IsString()
+  @IsOptional()
+  address: string;
 
   @IsString()
   @IsOptional()
   comment: string;
+
+  // places* Place[]
 }

@@ -1,7 +1,7 @@
 import {
-  Column,
+  // Column,
   CreateDateColumn,
-  DeleteDateColumn,
+  // DeleteDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,10 +17,10 @@ export class BaseModel {
   id: string;
 }
 
-export class OrganizationModel extends BaseModel {
-  @Column()
-  profileId: string;
+// export class OrganizationModel extends BaseModel {
+//   // @Column()
+//   // profileId: string;
 
-  @DeleteDateColumn()
-  deletedAt?: Date;
-}
+//   @DeleteDateColumn()
+//   deletedAt?: Date;
+// }

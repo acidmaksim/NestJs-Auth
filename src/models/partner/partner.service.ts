@@ -12,10 +12,9 @@ export class PartnerService {
     private partnerRepository: Repository<PartnerEntity>,
   ) {}
 
-  create(partnerCreateDto: CreatePartnerDto): Promise<PartnerEntity> {
+  create(createPartnerDto: CreatePartnerDto): Promise<PartnerEntity> {
     const partner = new PartnerEntity();
-
-    return this.partnerRepository.save({ ...partner, ...partnerCreateDto });
+    return this.partnerRepository.save({ ...partner, ...createPartnerDto });
   }
 
   findAll(query): Promise<PartnerEntity[]> {
@@ -23,7 +22,7 @@ export class PartnerService {
   }
 
   async findOne(partnerId: string): Promise<PartnerEntity> {
-    const partner = this.partnerRepository.findOne(partnerId, {
+    const partner = await this.partnerRepository.findOne(partnerId, {
       withDeleted: true,
     });
 
@@ -34,16 +33,12 @@ export class PartnerService {
     return partner;
   }
 
-  async update(
+  async updatepartner(
     partnerId: string,
-    partnerUpdateDto: UpdatePartnerDto,
+    updatePartnerDto: UpdatePartnerDto,
   ): Promise<PartnerEntity> {
     const partner = await this.findOne(partnerId);
-
-    return this.partnerRepository.save({
-      ...partner,
-      ...partnerUpdateDto,
-    });
+    return this.partnerRepository.save({ ...partner, ...updatePartnerDto });
   }
 
   async delete(partnerId: string): Promise<PartnerEntity> {

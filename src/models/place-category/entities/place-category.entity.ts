@@ -3,23 +3,11 @@ import { BaseModel } from 'config/models';
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 
 @Entity()
-export class PartnerEntity extends BaseModel {
+export class PlaceCategoryEntity extends BaseModel {
   @Column()
   title: string;
-
   @Column()
-  phone: string;
-
-  @Column()
-  managerName: string;
-
-  // email: Type
-
-  @Column({ default: '' })
-  address: string;
-
-  @Column({ default: '' })
-  comment: string;
+  description: string;
 
   @ManyToMany(() => PlaceEntity)
   @JoinTable()
