@@ -38,7 +38,7 @@ services:
     ports:
       - '8080:80'
     volumes:
-      - dbadmin:/root/.pgadmin
+      - dbadmin:/data/postgres
     env_file:
       - docker.env
     networks:
