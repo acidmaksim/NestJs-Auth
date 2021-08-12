@@ -1,6 +1,6 @@
 import { PlaceEntity } from '@src/models/place/entities/place.entity';
 import { BaseModel } from 'config/models';
-import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity()
 export class PartnerEntity extends BaseModel {
@@ -21,7 +21,6 @@ export class PartnerEntity extends BaseModel {
   @Column({ default: '' })
   comment: string;
 
-  @ManyToMany(() => PlaceEntity)
-  @JoinTable()
+  @OneToMany(() => PlaceEntity, (place) => place.partner)
   places: PlaceEntity[];
 }

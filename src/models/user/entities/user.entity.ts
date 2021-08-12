@@ -1,9 +1,9 @@
-import { OrganizationModel } from 'config/models';
+import { BaseModel } from 'config/models';
 import { hash } from 'bcrypt';
 import { BeforeRemove, Column, Entity } from 'typeorm';
 
 @Entity({ name: 'users' })
-export class UserEntity extends OrganizationModel {
+export class UserEntity extends BaseModel {
   @Column()
   firstName: string;
 

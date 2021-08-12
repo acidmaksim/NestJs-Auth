@@ -6,15 +6,12 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
   Query,
 } from '@nestjs/common';
 import { PlaceTypeService } from './place-type.service';
 import { CreatePlaceTypeDto } from './dto/create-place-type.dto';
 import { UpdatePlaceTypeDto } from './dto/update-place-type.dto';
-import { AuthGuard } from '../user/guards/auth.guard';
 
-@UseGuards(AuthGuard)
 @Controller('place-types')
 export class PlaceTypeController {
   constructor(private readonly placeTypesService: PlaceTypeService) {}

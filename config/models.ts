@@ -1,6 +1,7 @@
 import {
   // Column,
   CreateDateColumn,
+  DeleteDateColumn,
   // DeleteDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -15,12 +16,7 @@ export class BaseModel {
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }
-
-// export class OrganizationModel extends BaseModel {
-//   // @Column()
-//   // profileId: string;
-
-//   @DeleteDateColumn()
-//   deletedAt?: Date;
-// }

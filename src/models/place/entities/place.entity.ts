@@ -1,26 +1,17 @@
 import { PartnerEntity } from '@src/models/partner/entities/partner.entity';
 import { ReviewEntity } from '@src/models/review/entities/review.entity';
 import { BaseModel } from 'config/models';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 
 @Entity()
 export class PlaceEntity extends BaseModel {
   @Column()
   title: string;
 
-  @OneToOne(() => PartnerEntity)
-  @JoinColumn()
+  @ManyToOne(() => PartnerEntity, (partner) => partner.places)
   partner: PartnerEntity;
 
   // type* Type
-
   // category* Category
 
   @Column()
@@ -72,7 +63,7 @@ export class PlaceEntity extends BaseModel {
   @Column()
   photo: string;
 
-  @Column()
+  @Column('simple-array', { default: [] })
   photos: string[];
 
   @Column({ default: '' })

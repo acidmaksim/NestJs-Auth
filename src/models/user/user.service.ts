@@ -41,10 +41,12 @@ export class UserService {
   }
 
   async login(loginUserDto: LoginUserDto): Promise<UserEntity> {
-    const user = await this.userRepository.findOne(
-      { email: loginUserDto.email },
-      { select: ['password', 'id', 'profileId'] },
-    );
+    const user = new UserEntity();
+    // await this.userRepository.findOne(
+    //   UserEntity,
+    //   { email: loginUserDto.email },
+    //   { select: ['password', 'id', 'profileId'] },
+    // );
 
     const isPasswordCorrect =
       !!user && compare(loginUserDto.password, user.password);
@@ -61,10 +63,9 @@ export class UserService {
     return user;
   }
 
-  getUserToken({ id, profileId }: UserEntity): string {
+  getUserToken({ id }: UserEntity): string {
     const data: UserJwtData = {
       id,
-      profileId,
       accessType: 'user',
     };
 

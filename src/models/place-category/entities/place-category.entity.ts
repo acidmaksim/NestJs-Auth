@@ -6,6 +6,7 @@ import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 export class PlaceCategoryEntity extends BaseModel {
   @Column()
   title: string;
+
   @Column()
   description: string;
 
