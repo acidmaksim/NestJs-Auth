@@ -18,6 +18,7 @@ export class PlaceController {
 
   @Post()
   create(@Body() createPlaceDto: CreatePlaceDto) {
+    console.log('createPlaceDto', createPlaceDto);
     return this.placesService.create(createPlaceDto);
   }
 
