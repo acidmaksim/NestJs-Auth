@@ -8,6 +8,9 @@ export class CreatePlaceDto {
   @IsNotBlank()
   partnerId: string;
 
+  @IsArray()
+  types: string[];
+
   // type* Type
   // category* Category
 
