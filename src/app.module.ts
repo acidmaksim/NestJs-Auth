@@ -1,7 +1,6 @@
-import { AuthMiddleware } from '@src/models/user/middlewares/auth.middleware';
+import { AuthMiddleware } from '@src/models/partner/middlewares/auth.middleware';
 import { ConfigModule } from '@nestjs/config';
 
-import { UserModule } from '@src/models/user/user.module';
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { DatabaseModule } from '@src/database.module';
 
@@ -14,7 +13,7 @@ import { PartnerModule } from './models/partner/partner.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    UserModule,
+
     DatabaseModule,
     PlaceTypeModule,
     PlaceCategoryModule,

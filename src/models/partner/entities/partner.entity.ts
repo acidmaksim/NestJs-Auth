@@ -1,7 +1,7 @@
 import { PlaceEntity } from '@src/models/place/entities/place.entity';
 import { BaseModel } from 'config/models';
-import { Column, Entity, OneToMany } from 'typeorm';
-
+import { BeforeUpdate, Column, Entity, OneToMany, BeforeInsert } from 'typeorm';
+import { hash } from 'bcrypt';
 @Entity()
 export class PartnerEntity extends BaseModel {
   @Column()
@@ -13,7 +13,8 @@ export class PartnerEntity extends BaseModel {
   @Column()
   managerName: string;
 
-  // email: Type
+  @Column()
+  email: string;
 
   @Column({ default: '' })
   address: string;
@@ -23,4 +24,13 @@ export class PartnerEntity extends BaseModel {
 
   @OneToMany(() => PlaceEntity, (place) => place.partner)
   places: PlaceEntity[];
+
+  @Column({ select: false })
+  password: string;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    this.password = await hash(this.password, 10);
+  }
 }

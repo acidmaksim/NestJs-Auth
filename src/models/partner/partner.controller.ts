@@ -1,3 +1,4 @@
+import { LoginDto } from './dto/login.dto';
 import {
   Controller,
   Get,
@@ -7,6 +8,7 @@ import {
   Param,
   Delete,
   Query,
+  Res,
 } from '@nestjs/common';
 import { PartnerService } from './partner.service';
 import { CreatePartnerDto } from './dto/create-partner.dto';
@@ -19,6 +21,18 @@ export class PartnerController {
   @Post()
   create(@Body() createPartnerDto: CreatePartnerDto) {
     return this.partnersService.create(createPartnerDto);
+  }
+
+  @Post('/login')
+  async login(
+    @Res({ passthrough: true }) res: Response,
+    @Body() loginUserDto: LoginDto,
+  ) {
+    const partner = await this.partnersService.login(loginUserDto);
+
+    const token = this.partnersService.getToken(partner.id);
+
+    return { success: true, auth_token: token };
   }
 
   @Get()

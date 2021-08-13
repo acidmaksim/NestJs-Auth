@@ -1,9 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePartnerDto } from './dto/create-partner.dto';
+import { LoginDto } from './dto/login.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
 import { PartnerEntity } from './entities/partner.entity';
+import { compare } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
+import { JWT_SECRET } from '@src/constants';
 
 @Injectable()
 export class PartnerService {
@@ -49,5 +58,38 @@ export class PartnerService {
   async recover(partnerId: string): Promise<PartnerEntity> {
     const partner = await this.findOne(partnerId);
     return this.partnerRepository.recover(partner);
+  }
+
+  async login(loginDto: LoginDto): Promise<PartnerEntity> {
+    const partner = await this.partnerRepository.findOne(
+      {
+        email: loginDto.email,
+        password: loginDto.password,
+      },
+      { select: ['password', 'id'] },
+    );
+
+    const isPasswordCorrect =
+      !!partner && compare(loginDto.password, partner.password);
+
+    if (!isPasswordCorrect) {
+      throw new HttpException(
+        'Email or password incorrect',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
+    delete partner.password;
+
+    return partner;
+  }
+
+  getToken(id: string) {
+    const data = {
+      id,
+      type: 'partner',
+    };
+
+    return sign(data, JWT_SECRET, { expiresIn: '360d' });
   }
 }
