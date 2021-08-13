@@ -10,6 +10,7 @@ import { PlaceCategoryModule } from './models/place-category/place-category.modu
 import { ReviewModule } from './models/review/review.module';
 import { PlaceModule } from './models/place/place.module';
 import { PartnerModule } from './models/partner/partner.module';
+import { AnswerModule } from './models/answer/answer.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PartnerModule } from './models/partner/partner.module';
     ReviewModule,
     PlaceModule,
     PartnerModule,
+    AnswerModule,
   ],
   controllers: [],
   providers: [],

@@ -1,7 +1,7 @@
 import { PartnerEntity } from '@src/models/partner/entities/partner.entity';
 import { PlaceEntity } from '@src/models/place/entities/place.entity';
 import { BaseModel } from 'config/models';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 @Entity()
 export class ReviewEntity extends BaseModel {
@@ -21,6 +21,10 @@ export class ReviewEntity extends BaseModel {
   @ManyToOne(() => PlaceEntity)
   @JoinColumn()
   place: PlaceEntity;
+
+  // @OneToOne(() => AnswerEntity, {eager: true})
+  // @JoinColumn()
+  // answer: AnswerEntity
 
   @Column()
   text: string;

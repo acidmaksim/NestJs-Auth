@@ -1,6 +1,6 @@
 import { PlaceEntity } from '@src/models/place/entities/place.entity';
 import { BaseModel } from 'config/models';
-import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
 @Entity()
 export class PlaceCategoryEntity extends BaseModel {
@@ -10,7 +10,7 @@ export class PlaceCategoryEntity extends BaseModel {
   @Column()
   description: string;
 
-  @ManyToMany(() => PlaceEntity)
-  @JoinTable()
-  places: PlaceEntity[];
+  // @OneToMany(() => PlaceEntity)
+  // @JoinTable()
+  // places: PlaceEntity[];
 }
