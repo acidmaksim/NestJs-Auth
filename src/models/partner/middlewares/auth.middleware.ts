@@ -14,7 +14,7 @@ export class AuthMiddleware implements NestMiddleware {
   async use(req: ExpressRequest, res: Response, next: NextFunction) {
     const authHeader = req.headers['Authorization'] as string;
 
-    const token = authHeader.split(' ')[1];
+    const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
       req.user = null;

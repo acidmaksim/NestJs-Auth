@@ -1,11 +1,13 @@
 import { IsNotBlank } from '@src/extensions/is-not-blank';
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class CreatePlaceDto {
   @IsNotBlank()
   title: string;
 
-  // partner* Partner
+  @IsNotBlank()
+  partnerId: string;
+
   // type* Type
   // category* Category
 
@@ -62,7 +64,8 @@ export class CreatePlaceDto {
   @IsNotBlank()
   photo: string;
 
-  @IsNotBlank()
+  @IsArray()
+  @IsOptional()
   photos: string[];
 
   @IsString()

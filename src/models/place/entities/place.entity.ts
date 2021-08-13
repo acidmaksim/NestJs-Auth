@@ -15,13 +15,6 @@ export class PlaceEntity extends BaseModel {
   @Column()
   title: string;
 
-  @ManyToOne(() => PartnerEntity, (partner) => partner.places)
-  @JoinColumn()
-  partner: PartnerEntity;
-
-  // type* Type
-  // category* Category
-
   @Column()
   address: string;
 
@@ -77,12 +70,22 @@ export class PlaceEntity extends BaseModel {
   @Column({ default: '' })
   video: string;
 
-  // @Column()
-  // coordinates: [lat, lng]
-
   @Column()
   maxDiscount: number;
 
   @Column()
   discountRules: string;
+
+  @Column({ nullable: true })
+  partnerId: string;
+
+  @ManyToOne(() => PartnerEntity, (partner) => partner.places)
+  @JoinColumn({ name: 'partnerId' })
+  partner: PartnerEntity;
+
+  // @Column()
+  // coordinates: [lat, lng]
+
+  // type* Type
+  // category* Category
 }

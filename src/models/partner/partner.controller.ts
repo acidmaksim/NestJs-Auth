@@ -13,6 +13,7 @@ import {
 import { PartnerService } from './partner.service';
 import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
+import { Response } from 'express';
 
 @Controller('partner')
 export class PartnerController {

@@ -11,7 +11,11 @@ export class CreatePartnerDto {
   @IsNotBlank()
   managerName: string;
 
-  // email: Type
+  @IsNotBlank()
+  email: string;
+
+  @IsNotBlank()
+  password: string;
 
   @IsString()
   @IsOptional()
@@ -20,6 +24,4 @@ export class CreatePartnerDto {
   @IsString()
   @IsOptional()
   comment: string;
-
-  // places* Place[]
 }
