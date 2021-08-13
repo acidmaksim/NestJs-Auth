@@ -33,6 +33,7 @@ export class PartnerService {
   async findOne(partnerId: string): Promise<PartnerEntity> {
     const partner = await this.partnerRepository.findOne(partnerId, {
       withDeleted: true,
+      relations: ['places'],
     });
 
     if (!partner) {

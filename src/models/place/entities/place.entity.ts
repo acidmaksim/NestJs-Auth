@@ -1,3 +1,4 @@
+import { PlaceTypeEntity } from './../../place-type/entities/place-type.entity';
 import { PartnerEntity } from '@src/models/partner/entities/partner.entity';
 import { ReviewEntity } from '@src/models/review/entities/review.entity';
 import { BaseModel } from 'config/models';
@@ -8,6 +9,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
