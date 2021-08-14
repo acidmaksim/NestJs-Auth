@@ -29,7 +29,7 @@ export class PlaceCategoryService {
   async findOne(placeCategoryId: string): Promise<PlaceCategoryEntity> {
     const placeCategory = await this.placeCategoryRepository.findOne(
       placeCategoryId,
-      { withDeleted: true },
+      { withDeleted: true, relations: ['places'] },
     );
 
     if (!placeCategory) {

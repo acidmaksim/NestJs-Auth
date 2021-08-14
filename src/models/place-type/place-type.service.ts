@@ -25,7 +25,7 @@ export class PlaceTypeService {
   }
 
   async findOne(placeTypeId: string): Promise<PlaceTypeEntity> {
-    const placeType = this.placeTypeRepository.findOne(placeTypeId, {
+    const placeType = await this.placeTypeRepository.findOne(placeTypeId, {
       withDeleted: true,
     });
 

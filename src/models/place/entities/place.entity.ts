@@ -11,6 +11,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
+import { PlaceCategoryEntity } from '@src/models/place-category/entities/place-category.entity';
 
 @Entity()
 export class PlaceEntity extends BaseModel {
@@ -28,10 +29,6 @@ export class PlaceEntity extends BaseModel {
 
   @Column()
   howToFind: string;
-
-  @ManyToMany(() => ReviewEntity)
-  @JoinTable()
-  reviews: ReviewEntity[];
 
   @Column({ default: 0 })
   rating: number;
@@ -78,6 +75,9 @@ export class PlaceEntity extends BaseModel {
   @Column()
   discountRules: string;
 
+  @OneToMany(() => ReviewEntity, (review) => review.place)
+  reviews: ReviewEntity[];
+
   @Column({ nullable: true })
   partnerId: string;
 
@@ -89,5 +89,10 @@ export class PlaceEntity extends BaseModel {
   // coordinates: [lat, lng]
 
   // type* Type
-  // category* Category
+  @Column({ nullable: true })
+  categoryId: string;
+
+  @ManyToOne(() => PlaceCategoryEntity, (category) => category.places)
+  @JoinColumn({ name: 'categoryId' })
+  category: PlaceCategoryEntity;
 }

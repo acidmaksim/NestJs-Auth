@@ -22,9 +22,6 @@ export class PartnerEntity extends BaseModel {
   @Column({ default: '' })
   comment: string;
 
-  @OneToMany(() => PlaceEntity, (place) => place.partner)
-  places: PlaceEntity[];
-
   @Column({ select: false })
   password: string;
 
@@ -33,4 +30,7 @@ export class PartnerEntity extends BaseModel {
   async hashPassword() {
     this.password = await hash(this.password, 10);
   }
+
+  @OneToMany(() => PlaceEntity, (place) => place.partner)
+  places: PlaceEntity[];
 }

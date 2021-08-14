@@ -1,26 +1,52 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { UpdateAnswerDto } from './dto/update-answer.dto';
+import { AnswerEntity } from './entities/answer.entity';
 
 @Injectable()
 export class AnswerService {
-  create(createAnswerDto: CreateAnswerDto) {
-    return 'This action adds a new answer';
+  constructor(
+    @InjectRepository(AnswerEntity)
+    private answerRepositroy: Repository<AnswerEntity>,
+  ) {}
+
+  create(createAnswerDto: CreateAnswerDto): Promise<AnswerEntity> {
+    const answer = new AnswerEntity();
+    return this.answerRepositroy.save({ ...answer, ...createAnswerDto });
   }
 
-  findAll() {
-    return `This action returns all answer`;
+  findAll(query): Promise<AnswerEntity[]> {
+    return this.answerRepositroy.find(query);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} answer`;
+  async findOne(answerId: string): Promise<AnswerEntity> {
+    const answer = await this.answerRepositroy.findOne(answerId, {
+      withDeleted: true,
+      relations: ['review'],
+    });
+    if (!answer) {
+      throw new NotFoundException();
+    }
+    return answer;
   }
 
-  update(id: number, updateAnswerDto: UpdateAnswerDto) {
-    return `This action updates a #${id} answer`;
+  async updateAnswer(
+    answerId: string,
+    updateAnswerDto: UpdateAnswerDto,
+  ): Promise<AnswerEntity> {
+    const answer = await this.findOne(answerId);
+    return this.answerRepositroy.save({ ...answer, ...updateAnswerDto });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} answer`;
+  async delete(answerId: string): Promise<AnswerEntity> {
+    const answer = await this.findOne(answerId);
+    return this.answerRepositroy.softRemove(answer);
+  }
+
+  async recover(answerId: string): Promise<AnswerEntity> {
+    const answer = await this.findOne(answerId);
+    return this.answerRepositroy.recover(answer);
   }
 }

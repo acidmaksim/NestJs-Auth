@@ -1,3 +1,4 @@
+import { AnswerEntity } from '@src/models/answer/entities/answer.entity';
 import { PartnerEntity } from '@src/models/partner/entities/partner.entity';
 import { PlaceEntity } from '@src/models/place/entities/place.entity';
 import { BaseModel } from 'config/models';
@@ -13,18 +14,6 @@ export class ReviewEntity extends BaseModel {
 
   @Column()
   clientRank: string;
-
-  @ManyToOne(() => PartnerEntity)
-  @JoinColumn()
-  partner: PartnerEntity;
-
-  @ManyToOne(() => PlaceEntity)
-  @JoinColumn()
-  place: PlaceEntity;
-
-  // @OneToOne(() => AnswerEntity, {eager: true})
-  // @JoinColumn()
-  // answer: AnswerEntity
 
   @Column()
   text: string;
@@ -52,4 +41,21 @@ export class ReviewEntity extends BaseModel {
 
   @Column()
   priceByService: number;
+
+  @Column({ nullable: true })
+  placeId: string;
+
+  @ManyToOne(() => PlaceEntity, (place) => place.reviews)
+  @JoinColumn({ name: 'placeId' })
+  place: PlaceEntity;
+
+  @OneToOne(() => AnswerEntity, (answer) => answer.review)
+  answer: AnswerEntity;
+
+  @Column({ nullable: true })
+  partnerId: string;
+
+  @OneToOne(() => PartnerEntity)
+  @JoinColumn({ name: 'partnerId' })
+  partner: PartnerEntity;
 }

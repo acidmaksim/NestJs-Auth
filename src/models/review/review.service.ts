@@ -26,6 +26,7 @@ export class ReviewService {
   async findOne(reviewId: string): Promise<ReviewEntity> {
     const review = await this.reviewRepository.findOne(reviewId, {
       withDeleted: true,
+      relations: ['answer', 'partner'],
     });
 
     if (!review) {

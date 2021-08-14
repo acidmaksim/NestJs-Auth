@@ -24,7 +24,7 @@ export class PlaceService {
   async findOne(placeId: string): Promise<PlaceEntity> {
     const place = this.placeRepository.findOne(placeId, {
       withDeleted: true,
-      relations: ['partner'],
+      relations: ['partner', 'category', 'reviews'],
     });
 
     if (!place) {

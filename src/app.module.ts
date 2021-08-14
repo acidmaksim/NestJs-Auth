@@ -9,7 +9,10 @@ import { PlaceCategoryModule } from './models/place-category/place-category.modu
 import { ReviewModule } from './models/review/review.module';
 import { PlaceModule } from './models/place/place.module';
 import { PartnerModule } from './models/partner/partner.module';
+
+import { OrderModule } from './models/order/order.module';
 import { AnswerModule } from './models/answer/answer.module';
+import { ClientModule } from './models/client/client.module';
 
 @Module({
   imports: [
@@ -22,6 +25,8 @@ import { AnswerModule } from './models/answer/answer.module';
     PlaceModule,
     PartnerModule,
     AnswerModule,
+    OrderModule,
+    ClientModule,
   ],
   controllers: [],
   providers: [],

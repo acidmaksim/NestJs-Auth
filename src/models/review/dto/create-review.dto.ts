@@ -6,12 +6,17 @@ export class CreateReviewDto {
   clientId: string;
 
   @IsNotBlank()
+  placeId: string;
+
+  @IsNotBlank()
+  partnerId: string;
+
+  @IsNotBlank()
   clientFullName: string;
 
   @IsNotBlank()
   clientRank: string;
 
-  // partner* Partner
   // place* Place
 
   @IsNotBlank()

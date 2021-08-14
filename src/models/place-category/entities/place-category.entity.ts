@@ -10,7 +10,6 @@ export class PlaceCategoryEntity extends BaseModel {
   @Column()
   description: string;
 
-  // @OneToMany(() => PlaceEntity)
-  // @JoinTable()
-  // places: PlaceEntity[];
+  @OneToMany(() => PlaceEntity, (places) => places.category)
+  places: PlaceEntity[];
 }
