@@ -7,7 +7,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePartnerDto } from './dto/create-partner.dto';
-import { LoginDto } from './dto/login.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
 import { PartnerEntity } from './entities/partner.entity';
 import { compare } from 'bcrypt';
@@ -33,7 +32,6 @@ export class PartnerService {
   async findOne(partnerId: string): Promise<PartnerEntity> {
     const partner = await this.partnerRepository.findOne(partnerId, {
       withDeleted: true,
-      relations: ['places'],
     });
 
     if (!partner) {
@@ -61,29 +59,14 @@ export class PartnerService {
     return this.partnerRepository.recover(partner);
   }
 
-  async login(loginDto: LoginDto): Promise<PartnerEntity> {
-    const partner = await this.partnerRepository.findOne(
-      {
-        email: loginDto.email,
-        password: loginDto.password,
-      },
-      { select: ['password', 'id'] },
-    );
-
-    const isPasswordCorrect =
-      !!partner && compare(loginDto.password, partner.password);
-
-    if (!isPasswordCorrect) {
-      throw new HttpException(
-        'Email or password incorrect',
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
-    }
-
-    delete partner.password;
-
-    return partner;
-  }
+  // async login(loginDto: LoginDto): Promise<PartnerEntity> {
+  //   const partner = await this.partnerRepository.findOne(
+  //     {
+  //       email: loginDto.email,
+  //       password: loginDto.password,
+  //     },
+  //     { select: ['password', 'id'] },
+  //   );
 
   getToken(id: string) {
     const data = {

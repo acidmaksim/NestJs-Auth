@@ -1,26 +1,25 @@
-import { PlaceEntity } from '@src/models/place/entities/place.entity';
 import { BaseModel } from 'config/models';
-import { BeforeUpdate, Column, Entity, OneToMany, BeforeInsert } from 'typeorm';
+import { BeforeUpdate, Column, Entity, BeforeInsert } from 'typeorm';
 import { hash } from 'bcrypt';
 @Entity()
 export class PartnerEntity extends BaseModel {
+  // @Column()
+  // phone: string;
+
+  // @Column()
+  // managerName: string;
+
+  // @Column({ default: '' })
+  // address: string;
+
+  // @Column({ default: '' })
+  // comment: string;
+
   @Column()
   title: string;
 
   @Column()
-  phone: string;
-
-  @Column()
-  managerName: string;
-
-  @Column()
   email: string;
-
-  @Column({ default: '' })
-  address: string;
-
-  @Column({ default: '' })
-  comment: string;
 
   @Column({ select: false })
   password: string;
@@ -30,7 +29,4 @@ export class PartnerEntity extends BaseModel {
   async hashPassword() {
     this.password = await hash(this.password, 10);
   }
-
-  @OneToMany(() => PlaceEntity, (place) => place.partner)
-  places: PlaceEntity[];
 }
