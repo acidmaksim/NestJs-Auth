@@ -3,7 +3,7 @@
 
  const MyButton = ({children, ...props}) => {
      return (
-        <button disabled={true} className={classes.myBtn}>
+        <button className={classes.myBtn}  {...props} >
             {children}
         </button>
      )
